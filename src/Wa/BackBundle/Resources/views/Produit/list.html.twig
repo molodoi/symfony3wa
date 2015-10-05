@@ -35,9 +35,9 @@
                                 <td><span class="label label-success">{{ product.prix }}</span></td>
                                 <td>{{ product.description|striptags|nl2br }} {{ product.date_created|date }}</td>
                                 <td>
-                                    <a hef="" class="btn btn-block btn-success">Voir</a>
-                                    <a hef="" class="btn btn-block btn-info">Editer</a>
-                                    <a hef="" class="btn btn-block btn-danger">Supprimer</a>
+                                    <a href="{{ path('wa_back_produit_show', {'id': product.id}) }}" class="btn btn-block btn-success">Voir</a>
+                                    <a href="" class="btn btn-block btn-info">Editer</a>
+                                    <a href="" class="btn btn-block btn-danger">Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}
