@@ -1,0 +1,11 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}
+    Etudiant Admin - Application
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1>Je suis {{ firstname }}  {{ lastname }}</h1>
+    <a href="{{ path('wa_back_produit_list') }}">Liste Produits</a>
+{% endblock %}

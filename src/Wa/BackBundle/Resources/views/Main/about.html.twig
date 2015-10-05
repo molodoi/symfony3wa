@@ -1,0 +1,11 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}
+    A propos {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1>About</h1>
+    <a href="{{ path('wa_back_contact') }}">Contact</a>
+{% endblock %}

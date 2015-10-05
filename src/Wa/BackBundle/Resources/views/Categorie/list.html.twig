@@ -1,0 +1,55 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Liste des Catégories - Application{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Catégorie Table</h3>
+                    <div class="box-tools">
+                        <div class="input-group" style="width: 150px;">
+                            <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                            <div class="input-group-btn">
+                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody><tr>
+                            <th>ID</th>
+                            <th>Intitulé</th>
+                            <th>Date</th>
+                            <th>Active</th>
+                            <th>Reason</th>
+                        </tr>
+                        {% for categorie in categories %}
+                            <tr>
+                                <td>{{ categorie.id }}</td>
+                                <td><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a></td>
+                                <td>{{ categorie.date_created|date }}</td>
+                                <td><span class="label label-success">{{ categorie.active }}</span></td>
+                                <td>{{ categorie.description|striptags|nl2br }} {{ categorie.date_created|date }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody></table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block sidebar %}
+    <li class="header">Catégories</li>
+    {% for categorie in categories %}
+        <li><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Admin Contact - Application{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <h1>Contact</h1>
+
+    <a href="{{ path('wa_back_about') }}">About</a><br />
+    <a href="{{ path('wa_back_produit_show', {'id': 12}) }}">Show Produit</a><br />
+{% endblock %}

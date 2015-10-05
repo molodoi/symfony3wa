@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}| Admin{% endblock %}</title>
+</head>
+<body>
+
+<div id="content">
+    {% block body %}
+        Test
+    {% endblock %}
+
+    {% block sidebar %}
+        <div clas="sidebar">
+            <ul>
+                <li>Catégorie 1</li>
+                <li>Catégorie 2</li>
+            </ul>
+        </div>
+    {% endblock %}
+</div>
+</body>
+</html>
