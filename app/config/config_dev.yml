@@ -44,5 +44,11 @@ monolog:
 assetic:
     use_controller: true
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    transport:  smtp
+    port: 465
+    encryption: ssl
+    auth_mode:  login
+    host:       smtp.gmail.com
+    username:   tonlogin
+    password:   tonpass

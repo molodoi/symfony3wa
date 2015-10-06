@@ -4,8 +4,56 @@
 
 {% block body %}
     {{ parent() }}
+        {% for message in app.session.flashbag.get('info') %}
+            <div class="callout callout-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4>{{ message }}</h4>
+            </div>
+        {% endfor %}
     <h1>Contact</h1>
 
-    <a href="{{ path('wa_back_about') }}">About</a><br />
-    <a href="{{ path('wa_back_produit_show', {'id': 12}) }}">Show Produit</a><br />
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Formulaire de contact</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ form_start(formContact, {'attr': {'role': 'form'}}) }}
+                <!-- text input -->
+                <div class="form-group">
+                    {{ form_label(formContact.firstname, 'Prénom', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(formContact.firstname) }}
+                    {{ form_widget(formContact.firstname, { 'attr': {'class': 'form-control', 'placeholder': 'Prénom'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(formContact.lastname, 'Nom', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(formContact.lastname) }}
+                    {{ form_widget(formContact.lastname, { 'attr': {'class': 'form-control', 'placeholder': 'Nom'} }) }}
+                </div>
+                <div class="form-group">
+                    {{  form_label(formContact.email, 'Email', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(formContact.email) }}
+                    {{ form_widget(formContact.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
+                </div>
+
+                <!-- textarea -->
+                <div class="form-group">
+                    {{ form_label(formContact.content, 'Message', {'label_attr': {'class': 'foo'}}) }}
+                    {{ form_errors(formContact.content) }}
+                    {{ form_widget(formContact.content, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+
+                {{ form_widget(formContact.envoyer, { 'label': 'Envoyer' , 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}
+                {{ form_rest(formContact) }}
+                {{ form_end(formContact) }}
+
+        </div><!-- /.box-body -->
+    </div>
+
+
+
+
+
+
+
+
 {% endblock %}

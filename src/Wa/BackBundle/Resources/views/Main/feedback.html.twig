@@ -1,0 +1,12 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Feedback - Application{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    {{ form_start(formFeedBack) }}
+    {{ form_widget(formFeedBack) }}
+    {{ form_end(formFeedBack) }}
+{% endblock %}
+
+

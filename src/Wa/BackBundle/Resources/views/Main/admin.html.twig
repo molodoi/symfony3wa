@@ -1,10 +1,86 @@
 {% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}
+    Dashboard {{ parent() }}
+{% endblock %}
+
 {% block body %}
     <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"></h3>
+                        <div class="box-tools pull-right">
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-header">
+                        <h3 class="box-title">Catégorie Table</h3>
+                        <div class="box-tools">
+                            <div class="input-group" style="width: 150px;">
+                                <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table no-margin">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Intitulé</th>
+                                    <th>Description</th>
+                                    <th>Active</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for categorie in categories %}
+                                    <tr>
+                                        <td>{{ categorie.id }}</td>
+                                        <td><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a></td>
+                                        <td>{{ categorie.description|striptags|nl2br }}</td>
+                                        <td>
+                                            {% if categorie.active %}
+                                                <span class="label label-success">
+                                                Active
+                                            </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ categorie.date_created|date('D m Y', "Europe/Paris") }}</td>
+                                        <td>
+                                            <span class="pull-right">
+                                                <a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i> Voir</a>
+                                                <a href="" class="btn btn-info"><i class="fa fa-edit"></i> Editer</a>
+                                                <a href="" class="btn btn-danger"><i class="fa fa-remove"></i> Supprimer</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div><!-- /.table-responsive -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Créer une catégorie</a>
+                    </div><!-- /.box-footer -->
+                </div>
+            </div>
+        </div>
+
         <div class="col-xs-12">
-            <div class="box">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"></h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
                 <div class="box-header">
-                    <h3 class="box-title">Catégories</h3>
+                    <h3 class="box-title">Produit Table</h3>
                     <div class="box-tools">
                         <div class="input-group" style="width: 150px;">
                             <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
@@ -12,81 +88,48 @@
                                 <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
-                    </div>
-                </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>Intitulé</th>
-                            <th>Date</th>
-                            <th>Active</th>
-                            <th>Description</th>
-                        </tr>
-                        {% for categorie in categories %}
-                            <tr>
-                                <td>{{ categorie.id }}</td>
-                                <td><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a></td>
-                                <td>{{ categorie.date_created|date }}</td>
-                                <td><span class="label label-success">{{ categorie.active }}</span></td>
-                                <td>{{ categorie.description|striptags|nl2br }} {{ categorie.date_created|date }}</td>
-                                <td>
-                                    <a hef="" class="btn btn-block btn-success">Voir</a>
-                                    <a hef="" class="btn btn-block btn-info">Editer</a>
-                                    <a hef="" class="btn btn-block btn-danger">Supprimer</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table class="table no-margin">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Intitulé</th>
+                                    <th>Description</th>
+                                    <th>Active</th>
+                                    <th>Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                        </tbody></table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+                                {% for product in products %}
+                                    <tr>
+                                        <td>{{ product.id }}</td>
+                                        <td><a href="{{ path('wa_back_produit_show', {'id': product.id}) }}">{{ product.title }}</a></td>
+                                        <td>{{ product.date_created|date }}</td>
+                                        <td><span class="label label-success">{{ product.prix }}</span></td>
+                                        <td>{{ product.description|striptags|nl2br }} {{ product.date_created|date }}</td>
+                                        <td>
+                                            <span class="pull-right">
+                                                <a href="{{ path('wa_back_produit_show', {'id': product.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i> Voir</a>
+                                                <a href="" class="btn btn-info"><i class="fa fa-edit"></i> Editer</a>
+                                                <a href="" class="btn btn-danger"><i class="fa fa-remove"></i> Supprimer</a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div><!-- /.table-responsive -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer clearfix">
+                        <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Créer un produit</a>
+                    </div><!-- /.box-footer -->
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Produits</h3>
-                    <div class="box-tools">
-                        <div class="input-group" style="width: 150px;">
-                            <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>Intitulé</th>
-                            <th>Date</th>
-                            <th>Prix</th>
-                            <th>Description</th>
-                        </tr>
-                        {% for product in products %}
-                            <tr>
-                                <td>{{ product.id }}</td>
-                                <td><a href="{{ path('wa_back_produit_show', {'id': product.id}) }}">{{ product.title }}</a></td>
-                                <td>{{ product.date_created|date }}</td>
-                                <td><span class="label label-success">{{ product.prix }}</span></td>
-                                <td>{{ product.description|striptags|nl2br }} {{ product.date_created|date }}</td>
-                                <td>
-                                    <a hef="" class="btn btn-block btn-success">Voir</a>
-                                    <a hef="" class="btn btn-block btn-info">Editer</a>
-                                    <a hef="" class="btn btn-block btn-danger">Supprimer</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-
-                        </tbody></table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
         </div>
-    </div>
 {% endblock %}
 
 {% block sidebar %}

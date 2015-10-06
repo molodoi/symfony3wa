@@ -14,6 +14,14 @@ wa_back_contact:
     path: /contact
     defaults: { _controller: WaBackBundle:Main:contact }
 
+wa_back_tanks_feedback:
+    path: /thanks-feedback
+    defaults: { _controller: WaBackBundle:Main:thanksFeedback }
+
+wa_back_feedback:
+    path: /feedback
+    defaults: { _controller: WaBackBundle:Main:feedback }
+
 wa_back_etudiant:
     path:     /etudiant/{firstname}/{lastname}
     defaults: { _controller: WaBackBundle:Etudiant:index }
