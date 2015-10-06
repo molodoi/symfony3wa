@@ -4,47 +4,65 @@
 
 {% block body %}
     {{ parent() }}
+
+
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Produits</h3>
-                    <div class="box-tools">
-                        <div class="input-group" style="width: 150px;">
-                            <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-                            </div>
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Produit</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-header">
+                <h3 class="box-title">Produit Table</h3>
+                <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                        <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </div><!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>Intitulé</th>
-                            <th>Date</th>
-                            <th>Prix</th>
-                            <th>Description</th>
-                        </tr>
-                        {% for product in products %}
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
                             <tr>
-                                <td>{{ product.id }}</td>
-                                <td><a href="{{ path('wa_back_produit_show', {'id': product.id}) }}">{{ product.title }}</a></td>
-                                <td>{{ product.date_created|date }}</td>
-                                <td><span class="label label-success">{{ product.prix }}</span></td>
-                                <td>{{ product.description|striptags|nl2br }} {{ product.date_created|date }}</td>
-                                <td>
-                                    <a href="{{ path('wa_back_produit_show', {'id': product.id}) }}" class="btn btn-block btn-success">Voir</a>
-                                    <a href="" class="btn btn-block btn-info">Editer</a>
-                                    <a href="" class="btn btn-block btn-danger">Supprimer</a>
-                                </td>
+                                <th>ID</th>
+                                <th>Intitulé</th>
+                                <th>Description</th>
+                                <th>Active</th>
+                                <th>Date</th>
                             </tr>
-                        {% endfor %}
+                            </thead>
+                            <tbody>
 
-                        </tbody></table>
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td><a href="{{ path('wa_back_produit_show', {'id': product.id}) }}">{{ product.title }}</a></td>
+                                    <td>{{ product.date_created|date }}</td>
+                                    <td><span class="label label-success">{{ product.prix }}</span></td>
+                                    <td>{{ product.description|striptags|nl2br }} {{ product.date_created|date }}</td>
+                                    <td>
+                                        <span class="pull-right">
+                                            <a href="{{ path('wa_back_produit_show', {'id': product.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i> Voir</a>
+                                            <a href="" class="btn btn-info"><i class="fa fa-edit"></i> Editer</a>
+                                            <a href="" class="btn btn-danger"><i class="fa fa-remove"></i> Supprimer</a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
-            </div><!-- /.box -->
+                <div class="box-footer clearfix">
+                    <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Créer une catégorie</a>
+                </div><!-- /.box-footer -->
+            </div>
         </div>
     </div>
 {% endblock %}
