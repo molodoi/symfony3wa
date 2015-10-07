@@ -1,5 +1,7 @@
 {% extends 'WaBackBundle::layout.html.twig' %}
 
+{% form_theme formFeedBack 'WaBackBundle:Form:fields-errors.html.twig' %}
+
 {% block title %}Feedback - Application{% endblock %}
 
 {% block content %}
@@ -7,7 +9,7 @@
 
     <div class="box box-warning">
         <div class="box-header with-border">
-            <h3 class="box-title">Formulaire de contact</h3>
+            <h3 class="box-title">Formulaire de feedback</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             {{ form_start(formFeedBack, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
@@ -32,42 +34,32 @@
                 {{ form_errors(formFeedBack.email) }}
                 {{ form_widget(formFeedBack.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
             </div>
-
-            <div class="col-lg-4">
-                <div class="form-group">
-                    {{  form_label(formFeedBack.date.day, 'Jour', {'label_attr': {'class': 'foo'}}) }}
-                    {{ form_widget(formFeedBack.date.day, { 'attr': {'class': 'form-control'} }) }}
-                    {{ form_errors(formFeedBack.date.day) }}
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group">
-                    {{  form_label(formFeedBack.date.day, 'Jour', {'label_attr': {'class': 'foo'}}) }}
-                    {{ form_widget(formFeedBack.date.day, { 'attr': {'class': 'form-control'} }) }}
-                    {{ form_errors(formFeedBack.date.day) }}
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="form-group">
-                    {{ form_label(formFeedBack.date.month, 'Mois', {'label_attr': {'class': 'foo'}}) }}
-                    {{ form_widget(formFeedBack.date.month, { 'attr': {'class': 'form-control'} }) }}
-                    {{ form_errors(formFeedBack.date.month) }}
-                </div>
-            </div>
-
-
-                <div class="form-group">
-                    <div class="col-lg-4">
-                {{  form_label(formFeedBack.date.year, 'Mois', {'label_attr': {'class': 'foo'}}) }}
-                {{ form_widget(formFeedBack.date.year, { 'attr': {'class': 'form-control'} }) }}
-                {{ form_errors(formFeedBack.date.year) }}
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        {{  form_label(formFeedBack.date.day, 'Jour', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_widget(formFeedBack.date.day, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(formFeedBack.date.day) }}
                     </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        {{ form_label(formFeedBack.date.month, 'Mois', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_widget(formFeedBack.date.month, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(formFeedBack.date.month) }}
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="form-group">
+                        {{  form_label(formFeedBack.date.year, 'Année', {'label_attr': {'class': 'foo'}}) }}
+                        {{ form_widget(formFeedBack.date.year, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(formFeedBack.date.year) }}
+                    </div>
+                </div>
             </div>
 
             <div class="form-group">
                 {{ form_widget(formFeedBack.envoyer, { 'label': 'Envoyer' , 'attr': {'class': 'btn btn-sm btn-block btn-info btn-flat pull-left'} }) }}
-
             </div>
             {{ form_rest(formFeedBack) }}
             {{ form_end(formFeedBack) }}

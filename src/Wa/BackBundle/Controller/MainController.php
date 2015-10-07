@@ -73,7 +73,6 @@ class MainController extends Controller
 
     public function contactAction(Request $request)
     {
-
         $formContact = $this->createFormBuilder()
             ->add('firstname', 'text',
                 array(
@@ -160,8 +159,28 @@ class MainController extends Controller
                     ))
                 )
             ))
-            ->add('firstname', 'text')
-            ->add('email', 'email')
+            ->add('firstname', 'text',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(array('message' => 'Champ obligatoire')),
+                        new Assert\Length(['min' =>2,'minMessage'=>'attention'])
+                    ),
+                    'required' => true
+                )
+            )
+            ->add('email', 'email',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(array('message' => 'Champ obligatoire')),
+                        new Assert\Email(array(
+                            'message' => 'La valeur "{{ value }}" n\'est un email pas valide.',
+                            'checkMX' => true,
+                        ))
+                    ),
+                    //active/désactive la validation html5 du navigateur sur 1 champ
+                    'required' => true
+                )
+            )
             ->add('date', 'date', array(
                 'years' => range(date('Y') -1, date('Y')),
                 'format' => 'dd MM yyyy',

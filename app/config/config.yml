@@ -35,6 +35,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    # start Activer Bootstrap
+    #form:
+        #resources: ['bootstrap_3_layout.html.twig']
+    # end Activer Bootstrap
 
 # Assetic Configuration
 assetic:
