@@ -2,7 +2,7 @@
 
 {% block title %}Admin Contact - Application{% endblock %}
 
-{% block body %}
+{% block content %}
     {{ parent() }}
         {% for message in app.session.flashbag.get('info') %}
             <div class="callout callout-success">
@@ -17,7 +17,7 @@
             <h3 class="box-title">Formulaire de contact</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
-            {{ form_start(formContact, {'attr': {'role': 'form'}}) }}
+            {{ form_start(formContact, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
                 <!-- text input -->
                 <div class="form-group">
                     {{ form_label(formContact.firstname, 'Prénom', {'label_attr': {'class': 'foo'}}) }}

@@ -2,7 +2,7 @@
 
 {% block title %}Thanks Feed Back - Application{% endblock %}
 
-{% block body %}
+{% block content %}
     {{ parent() }}
     {% for message in app.session.flashbag.get('info') %}
         <div class="callout callout-success">

@@ -4,7 +4,7 @@ namespace Wa\BackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends Controller
@@ -75,36 +75,71 @@ class MainController extends Controller
     {
 
         $formContact = $this->createFormBuilder()
-            ->add('firstname', 'text')
-            ->add('lastname', 'text')
-            ->add('email', 'email')
-            ->add('content', 'textarea')
+            ->add('firstname', 'text',
+                array(
+                     'constraints' => array(
+                         new Assert\NotBlank(array('message' => 'Champ obligatoire')),
+                         new Assert\Length(['min' =>2,'minMessage'=>'attention'])
+                     ),
+                    'required' => true
+                )
+            )
+            ->add('lastname', 'text',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(array('message' => 'Champ obligatoire'))
+                    ),
+                    //active/désactive la validation html5 du navigateur sur 1 champ
+                    'required' => true
+                )
+            )
+            ->add('email', 'email',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(array('message' => 'Champ obligatoire')),
+                        new Assert\Email(array(
+                            'message' => 'La valeur "{{ value }}" n\'est un email pas valide.',
+                            'checkMX' => true,
+                        ))
+                    ),
+                    //active/désactive la validation html5 du navigateur sur 1 champ
+                    'required' => true
+                )
+            )
+            ->add('content', 'textarea',
+                array(
+                    'constraints' => array(
+                        new Assert\NotBlank(array('message' => 'Champ obligatoire')),
+                        new Assert\Length(['min' => 10, 'max' => 100])
+                    ),
+                    //active/désactive la validation html5 du navigateur sur 1 champ
+                    'required' => true
+                )
+            )
             ->add('envoyer', 'submit')
             ->getForm();
 
+        $formContact->handleRequest($request);
 
+        if($formContact->isValid()){
 
-        if($request->isMethod('POST')){
-            $formContact->bind($request);
-            if($formContact->isValid()){
-                $data = $formContact->getData();
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Hello Email')
-                    ->setFrom('lamerant.matthieu@gmail.com')
-                    ->setTo('lamerant.matthieu@gmail.com')
-                    ->setBody(
-                        $this->renderView(
-                            'WaBackBundle:Emails:registration.html.twig',
-                            array('data' => $data)
-                        ),
-                        'text/html'
-                    );
-                $this->get('mailer')->send($message);
-                $session = $request->getSession();
-                $session->getFlashBag()->add('info', 'Votre email a bien été envoyé!');
+            $data = $formContact->getData();
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Hello Email')
+                ->setFrom('lamerant.matthieu@gmail.com')
+                ->setTo('lamerant.matthieu@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'WaBackBundle:Emails:registration.html.twig',
+                        array('data' => $data)
+                    ),
+                    'text/html'
+                );
+            $this->get('mailer')->send($message);
+            $session = $request->getSession();
+            $session->getFlashBag()->add('info', 'Votre email a bien été envoyé!');
 
-                return $this->redirectToRoute('wa_back_contact');
-            }
+            return $this->redirectToRoute('wa_back_contact');
         }
 
         return $this->render('WaBackBundle:Main:contact.html.twig', array('formContact' => $formContact->createView()));
@@ -118,18 +153,28 @@ class MainController extends Controller
             ->add('statut', 'choice', array(
                 'choices'  => array('urgent' => 'Urgent', 'important' => 'Important', 'normal' => 'Normal'),
                 'preferred_choices' => array('normal'),
+                'constraints' => array(
+                    new Assert\Choice(array(
+                        'choices' => array('urgent', 'important', 'normal' ),
+                        'message' => 'Choisir un statut valide.',
+                    ))
+                )
             ))
             ->add('firstname', 'text')
             ->add('email', 'email')
             ->add('date', 'date', array(
                 'years' => range(date('Y') -1, date('Y')),
                 'format' => 'dd MM yyyy',
+                'constraints' => array(
+                    new Assert\Date(
+                        array('message' => 'Date invalide')
+                    )
+                ),
             ))
             ->add('envoyer', 'submit')
             ->getForm();
 
-        if($request->isMethod('POST')){
-            $formFeedBack->bind($request);
+            $formFeedBack->handleRequest($request);
             if($formFeedBack->isValid()){
                 $data = $formFeedBack->getData();
                 $message = \Swift_Message::newInstance()
@@ -149,7 +194,6 @@ class MainController extends Controller
 
                 return $this->redirectToRoute('wa_back_tanks_feedback');
             }
-        }
 
         return $this->render('WaBackBundle:Main:feedback.html.twig', array('formFeedBack' => $formFeedBack->createView()));
 

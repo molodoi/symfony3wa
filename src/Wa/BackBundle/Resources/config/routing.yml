@@ -6,26 +6,7 @@ wa_back_produit:
     resource: "@WaBackBundle/Resources/config/routes/produit.yml"
     prefix:   /produit
 
-wa_back_about:
-    path: /about
-    defaults: { _controller: WaBackBundle:Main:about }
+wa_back:
+    resource: "@WaBackBundle/Resources/config/routes/main.yml"
+    prefix:   /
 
-wa_back_contact:
-    path: /contact
-    defaults: { _controller: WaBackBundle:Main:contact }
-
-wa_back_tanks_feedback:
-    path: /thanks-feedback
-    defaults: { _controller: WaBackBundle:Main:thanksFeedback }
-
-wa_back_feedback:
-    path: /feedback
-    defaults: { _controller: WaBackBundle:Main:feedback }
-
-wa_back_etudiant:
-    path:     /etudiant/{firstname}/{lastname}
-    defaults: { _controller: WaBackBundle:Etudiant:index }
-
-wa_back_homepage:
-    path:     /
-    defaults: { _controller: WaBackBundle:Main:admin }
