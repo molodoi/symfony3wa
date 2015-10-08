@@ -5,3 +5,7 @@ wa_back_produit_list:
 wa_back_produit_show:
     path: /show/{id}
     defaults: { _controller: WaBackBundle:Produit:show }
+
+wa_back_produit_create:
+    path: /create
+    defaults: { _controller: WaBackBundle:Produit:create }

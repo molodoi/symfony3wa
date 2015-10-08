@@ -5,13 +5,6 @@
 {% block content %}
     {{ parent() }}
 
-    {% for message in app.session.flashbag.get('info') %}
-        <div class="callout callout-success">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4>{{ message }}</h4>
-        </div>
-    {% endfor %}
-
     <h1>Contact</h1>
 
     {% if form_errors(formContact) %}

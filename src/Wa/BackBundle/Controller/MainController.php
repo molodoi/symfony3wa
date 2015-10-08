@@ -139,6 +139,8 @@ class MainController extends Controller
             $session->getFlashBag()->add('info', 'Votre email a bien été envoyé!');
 
             return $this->redirectToRoute('wa_back_contact');
+
+            return $this->redirectToRoute('wa_back_contact');
         }
 
         return $this->render('WaBackBundle:Main:contact.html.twig', array('formContact' => $formContact->createView()));
