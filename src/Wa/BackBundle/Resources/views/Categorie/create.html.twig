@@ -1,0 +1,40 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Créer une Catégorie - Application{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    {% include "WaBackBundle:Partials:notification-messages.html.twig" %}
+
+    <h1>Créer une Catégorie </h1>
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Formulaire de Catégorie</h3>
+        </div><!-- /.box-header -->
+        {{ form_start(formCategory, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
+        <div class="box-body">
+
+            {{ form_label(formCategory.title) }}
+            <div class="form-group {% if form_errors(formCategory.title) %} has-error {% endif %}">
+                {{ form_errors(formCategory.title) }}
+                {{ form_widget(formCategory.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formCategory.description) }}
+            <div class="form-group {% if form_errors(formCategory.description) %} has-error {% endif %}">
+                {{ form_errors(formCategory.description) }}
+                {{ form_widget(formCategory.description, { 'attr': {'class': 'form-control', 'placeholder': 'Decription'} }) }}
+            </div>
+
+            <div class="box-footer">
+                <button>Envoyer</button>
+
+                <a href="{{ path('wa_back_categorie_list') }}" class="btn btn-sm btn-default btn-flat"><i class="fa fa-mail-reply"></i> Revenir à la liste des catégories</a>
+            </div>
+            {{ form_rest(formCategory) }}
+        </div>
+        {{ form_end(formCategory) }}
+    </div>
+{% endblock %}

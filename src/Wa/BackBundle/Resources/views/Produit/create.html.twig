@@ -50,7 +50,10 @@
 
         <div class="box-footer">
             {{ form_widget(formProduct.envoyer, { 'label': 'Envoyer' , 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}
+            &nbsp;
 
+
+            <a href="{{ path('wa_back_produit_list') }}" class="btn btn-sm btn-default btn-flat"><i class="fa fa-mail-reply"></i> Revenir à la liste des produits</a>
         </div>
         {{ form_rest(formProduct) }}
     </div>

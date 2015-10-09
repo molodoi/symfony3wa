@@ -31,6 +31,7 @@
                                 <th>Intitulé</th>
                                 <th>Description</th>
                                 <th>Active</th>
+                                <th>Position</th>
                                 <th>Date</th>
                             </tr>
                             </thead>
@@ -48,12 +49,19 @@
                                         </span>
                                         {% endif %}
                                     </td>
-                                    <td>{{ categorie.date_created|date('D m Y', "Europe/Paris") }}</td>
+                                    <td>
+                                        {% if categorie.position %}
+                                            <span class="label label-success">
+                                            {{ categorie.position }}
+                                        </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ categorie.dateCreated|date('D m Y', "Europe/Paris") }}</td>
                                     <td>
                                         <span class="pull-right">
                                             <a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}" class="btn btn-success"><i class="fa fa-eye"></i> Voir</a>
-                                            <a href="" class="btn btn-info"><i class="fa fa-edit"></i> Editer</a>
-                                            <a href="" class="btn btn-danger"><i class="fa fa-remove"></i> Supprimer</a>
+                                            <a href="{{ path('wa_back_categorie_edit', {'id': categorie.id}) }}" class="btn btn-info"><i class="fa fa-edit"></i> Editer</a>
+                                            <a href="{{ path('wa_back_categorie_delete', {'id': categorie.id}) }}" class="btn btn-danger"><i class="fa fa-remove"></i> Supprimer</a>
                                         </span>
                                     </td>
                                 </tr>
@@ -63,7 +71,7 @@
                     </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Créer une catégorie</a>
+                    <a href="{{ path('wa_back_categorie_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer une catégorie</a>
                 </div><!-- /.box-footer -->
             </div>
         </div>

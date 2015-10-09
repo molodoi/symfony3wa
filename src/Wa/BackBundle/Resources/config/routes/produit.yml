@@ -2,6 +2,10 @@ wa_back_produit_list:
     path: /list
     defaults: { _controller: WaBackBundle:Produit:list }
 
+wa_back_produit_edit:
+    path: /edit/{id}
+    defaults: { _controller: WaBackBundle:Produit:edit }
+
 wa_back_produit_show:
     path: /show/{id}
     defaults: { _controller: WaBackBundle:Produit:show }
@@ -9,3 +13,7 @@ wa_back_produit_show:
 wa_back_produit_create:
     path: /create
     defaults: { _controller: WaBackBundle:Produit:create }
+
+wa_back_produit_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:Produit:delete }

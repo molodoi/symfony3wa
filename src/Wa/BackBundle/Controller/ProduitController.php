@@ -6,50 +6,84 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wa\BackBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wa\BackBundle\Form\ProductType;
 
 //use Symfony\Component\HttpFoundation\Response;
 
 class ProduitController extends Controller
 {
-    public function showAction($id){
+    public function createAction(Request $request){
 
-        $products = [
-            [
-                "id" => 1,
-                "title" => "Mon premier produit",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 10
-            ],
-            [
-                "id" => 2,
-                "title" => "Mon deuxième produit",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 20
-            ],
-            [
-                "id" => 3,
-                "title" => "Mon troisième produit",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 30
-            ],
-            [
-                "id" => 4,
-                "title" => "",
-                "description" => "lorem ipsum",
-                "date_created" => new \DateTime('now'),
-                "prix" => 410
-            ],
-        ];
+        $product = new Product();
 
-        if (array_key_exists($id, $products)):
-                $produit = $products[$id];
-        else:
-            throw $this->createNotFoundException('Le produit n\'existe pas');
-        endif;
-        return $this->render('WaBackBundle:Produit:show.html.twig', array('produit' => $produit));
+        $form = $this->createForm(new ProductType(), $product);
+
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+
+            //$em = $this->get("doctrine");
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($product);
+
+            $em->flush();
+
+            $session = $request->getSession();
+
+            $session->getFlashBag()->add('info', 'Produit ajouté');
+
+            return $this->redirectToRoute('wa_back_produit_list');
+
+        }
+
+        return $this->render('WaBackBundle:Produit:create.html.twig',
+            array(
+                'formProduct' => $form->createView()
+            ));
+    }
+
+    public function editAction($id, Request $request){
+
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('WaBackBundle:Product')
+        ;
+
+        $product = $repository->find($id);
+
+        if (!$product) {
+            throw new NotFoundHttpException("Le produit id ".$id." n'existe pas.");
+        }
+
+        $formProduct = $form = $this->createForm(new ProductType(), $product);
+
+        $formProduct->handleRequest($request);
+
+        if($formProduct->isValid()){
+            //$em = $this->get("doctrine");
+            $em = $this->getDoctrine()->getManager();
+
+            $em->flush();
+
+            $session = $request->getSession();
+
+            $session->getFlashBag()->add('info', $product->getTitle(). ' modifié');
+
+            return $this->redirect($this->generateUrl('wa_back_produit_edit',
+                array('produit' => $product, 'id' => $id)
+            ));
+
+        }
+
+        return $this->render('WaBackBundle:Produit:create.html.twig',
+            array(
+                'formProduct' => $formProduct->createView(),
+                'produit' => $product
+            )
+        );
     }
 
     public function listAction(){
@@ -59,40 +93,58 @@ class ProduitController extends Controller
 
         $products = $repository->findAll();
 
+        if (null === $products) {
+            throw new NotFoundHttpException("Aucuns produits.");
+        }
+
         return $this->render('WaBackBundle:Produit:list.html.twig', array('products' => $products));
     }
 
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
 
-    public function createAction(Request $request){
+        $product = $em->getRepository('WaBackBundle:Product')->find($id);
 
-        $product = new Product();
-
-        $formProduct = $this->createFormBuilder($product)
-            ->add('title', 'text')
-            ->add('description', 'textarea')
-            ->add('price', 'number')
-            ->add('quantity', 'integer')
-            ->add('envoyer', 'submit')
-            ->getForm();
-
-        $formProduct->handleRequest($request);
-
-        if($formProduct->isValid()){
-            //$em = $this->get("doctrine");
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
-
-            $session = $request->getSession();
-            $session->getFlashBag()->add('info', 'Produit ajouté');
-
-            return $this->redirectToRoute('wa_back_produit_list');
-
+        if (!$product) {
+            throw $this->createNotFoundException('Unable to find Product entity.');
         }
 
-        return $this->render('WaBackBundle:Produit:create.html.twig',
-            array(
-                'formProduct' => $formProduct->createView()
-            ));
+        //$deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('WaBackBundle:Produit:show.html.twig', array(
+            'produit' => $product
+        ));
     }
+
+    public function deleteAction(Request $request, $id)
+    {
+        //$form = $this->createDeleteForm($id);
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('WaBackBundle:Product')->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException('Unable to find Product entity.');
+        }
+
+        $em->remove($product);
+        $em->flush();
+
+        $session = $request->getSession();
+        $session->getFlashBag()->add('info', $product->getTitle(). ' supprimé');
+
+        return $this->redirectToRoute('wa_back_produit_list');
+    }
+
+    /*
+    private function createDeleteForm($id)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('wa_back_produit_delete', array('id' => $id)))
+            ->getForm()
+            ;
+    }
+    */
+
 }
