@@ -1,7 +1,9 @@
 <?php
 
 namespace Wa\BackBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
+// Ajoutez ce use pour le contexte
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,7 @@ class Category
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100)
+     * @Assert\Length(min=2)
      */
     private $title;
 
@@ -190,5 +193,23 @@ class Category
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+    * @Assert\Callback
+    */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+    $forbiddenWords = array('catégorie', 'categorie', 'Catégorie', 'Categorie');
+
+        // On vérifie que le contenu ne contient pas l'un des mots
+        if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getDescription())) {
+            // La règle est violée, on définit l'erreur
+            $context
+                ->buildViolation('Contenu invalide car il contient un mot interdit.') // message
+                ->atPath('description') // attribut de l'objet qui est violé
+                ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+            ;
+        }
     }
 }
