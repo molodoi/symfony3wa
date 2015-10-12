@@ -2,6 +2,11 @@
 
 {% block title %}Créer un produit - Application{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
 {% block content %}
     {{ parent() }}
     <h1>Créer un Produit</h1>
@@ -48,12 +53,29 @@
                 {{ form_widget(formProduct.quantity, { 'attr': {'class': 'form-control', 'placeholder': 'Prix'} }) }}
             </div>
 
+            {{ form_label(formProduct.dateCreated, 'Date') }}
+            <div class="form-group {% if form_errors(formProduct.dateCreated) %} has-error {% endif %}">
+                {{ form_errors(formProduct.dateCreated) }}
+                {{ form_widget(formProduct.dateCreated, { 'attr': {'class': 'datepicker'} }) }}
+            </div>
+
             <div class="box-footer">
-                {{ form_widget(formProduct.envoyer, { 'label': 'Envoyer' , 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}
+                <button class="btn btn-sm btn-info btn-flat pull-left" type="submit">Envoyer</button>
                 <a href="{{ path('wa_back_produit_list') }}" class="btn btn-sm btn-info btn-flat pull-right">Revenir à la liste des produits</a>
             </div>
             {{ form_rest(formProduct) }}
         </div>
         {{ form_end(formProduct) }}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://jqueryui.com/resources/demos/datepicker/datepicker-fr.js"></script>
+    <script>
+        $(function() {
+            $( ".datepicker" ).datepicker(
+                $.datepicker.regional["fr"]
+            );
+        });
+    </script>
 {% endblock %}

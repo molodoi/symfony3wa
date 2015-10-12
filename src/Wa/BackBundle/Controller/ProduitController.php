@@ -3,6 +3,7 @@
 namespace Wa\BackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Wa\BackBundle\Entity\Product;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -131,10 +132,24 @@ class ProduitController extends Controller
         $em->remove($product);
         $em->flush();
 
+        if($request->isXmlHttpRequest()){
+            return new JsonResponse(array('success' => true));
+        }
+
         $session = $request->getSession();
         $session->getFlashBag()->add('info', $product->getTitle(). ' supprimé');
 
         return $this->redirectToRoute('wa_back_produit_list');
+    }
+
+
+    public function indexAction(){
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
+
+        return $this->render('WaBackBundle:Produit:index.html.twig', array(
+            'products' => $products
+        ));
     }
 
     /*

@@ -19,8 +19,14 @@ class ProductType extends AbstractType
             ->add('description', 'textarea')
             ->add('price', 'number')
             ->add('quantity', 'integer')
+            ->add('dateCreated', 'date',
+                array(
+                    'widget' => 'single_text',
+                    'format' => 'dd/MM/yyyy'
+                )
+            )
             //Le bouton submit est à ajouter de préférence en static dans les vues
-            ->add('envoyer', 'submit')
+
         ;
     }
 

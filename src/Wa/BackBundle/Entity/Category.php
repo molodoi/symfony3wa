@@ -61,7 +61,6 @@ class Category
 
     public function __construct(){
         $this->dateCreated = new \DateTime('NOW');
-        $this->position = 1;
         $this->active = true;
     }
 
@@ -174,11 +173,11 @@ class Category
     /**
      * Set position
      *
-     * @param \integrer $position
+     * @param integer $position
      *
      * @return Category
      */
-    public function setPosition(\integrer $position)
+    public function setPosition($position)
     {
         $this->position = $position;
 
@@ -188,7 +187,7 @@ class Category
     /**
      * Get position
      *
-     * @return \integrer
+     * @return integer
      */
     public function getPosition()
     {
@@ -196,20 +195,43 @@ class Category
     }
 
     /**
-    * @Assert\Callback
-    */
-    public function isContentValid(ExecutionContextInterface $context)
+     * @Assert\Callback
+     */
+    public function isValid(ExecutionContextInterface $context)
     {
-    $forbiddenWords = array('catégorie', 'categorie', 'Catégorie', 'Categorie');
+        $forbiddenWords = array('catégorie', 'categorie', 'Catégorie', 'Categorie');
 
         // On vérifie que le contenu ne contient pas l'un des mots
         if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getDescription())) {
             // La règle est violée, on définit l'erreur
             $context
-                ->buildViolation('Contenu invalide car il contient un mot interdit.') // message
-                ->atPath('description') // attribut de l'objet qui est violé
-                ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+                ->buildViolation('Contenu invalide car il contient un mot interdit.')
+                ->atPath('description')
+                ->addViolation()
+            ;
+        }
+
+        //Le titre doit être en majuscule
+        if(!preg_match('/[A-Z]/', $this->getTitle())){
+            $context
+                ->buildViolation('Tous les caractères de votre titre ne sont pas en majuscules!')
+                ->atPath('title')
+                ->addViolation()
             ;
         }
     }
+
+    /**
+     * @Assert\True(message="La position est 1 le titre doit être ACCUEIL.")
+     */
+    public function isCategoryValid()
+    {
+        // On vérifie que le contenu ne contient pas l'un des mots
+        if ($this->getPosition() === 1 && $this->getTitle() != "ACCUEIL") {
+            return false;
+        }
+
+        return true;
+    }
+
 }

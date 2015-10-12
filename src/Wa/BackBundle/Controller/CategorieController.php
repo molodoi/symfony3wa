@@ -3,6 +3,7 @@
 namespace Wa\BackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Wa\BackBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,6 +18,7 @@ class CategorieController extends Controller
         $formCategory = $this->createFormBuilder($category)
             ->add('title')
             ->add('description')
+            ->add('position', 'integer')
             ->getForm();
 
         $formCategory->handleRequest($request);
@@ -136,8 +138,10 @@ class CategorieController extends Controller
 
     public function deleteAction($id, Request $request){
 
+
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('WaBackBundle:Category')->find($id);
+
 
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Category entity.');

@@ -29,10 +29,14 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body class="skin-blue sidebar-mini wysihtml5-supported fixed">
-        {% block body %}{% endblock %}
+        {% block body %}
+
+
+        {% endblock %}
         {% block javascripts %}
             <!-- jQuery 2.1.4 -->
             <script src="{{ asset('plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
             <!-- Bootstrap 3.3.5 -->
             <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
             <!-- FastClick -->
@@ -46,8 +50,7 @@
             <script src="{{ asset('plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
             <!-- ChartJS 1.0.1 -->
             <script src="{{ asset('plugins/chartjs/Chart.min.js') }}"></script>
-            <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-            <script src="{{ asset('js/pages/dashboard2.js') }}"></script>
+
             <!-- AdminLTE for demo purposes -->
             <script src="{{ asset('js/demo.js') }}"></script>
         {% endblock %}
