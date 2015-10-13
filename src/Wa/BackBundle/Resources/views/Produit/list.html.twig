@@ -31,6 +31,7 @@
                                 <th>ID</th>
                                 <th>Intitulé</th>
                                 <th>Description</th>
+                                <th>Catégorie</th>
                                 <th>Prix</th>
                                 <th>Date</th>
                                 <th>Actions</th>
@@ -41,9 +42,14 @@
                                 <tr>
                                     <td>{{ product.id }}</td>
                                     <td><a href="{{ path('wa_back_produit_show', {'id': product.id}) }}">{{ product.title }}</a></td>
-                                    <td>{{ product.dateCreated|date("d/m/Y") }}</td>
-                                    <td><strong>{{ product.price }} €</strong></td>
                                     <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
+                                    <td>
+                                        {% if product.category is not null %}
+                                            {{ product.category.title }}
+                                        {% endif %}
+                                    </td>
+                                    <td><strong>{{ product.price }} €</strong></td>
+                                    <td>{{ product.dateCreated|date("d/m/Y") }}</td>
                                     <td>
                                         <span class="pull-right btn-group actions">
                                             <a href="{{ path('wa_back_produit_show', {'id': product.id}) }}" class="btn btn-success btn-sm" id="show_{{ product.id }}"><i class="fa fa-eye"></i> Voir</a>

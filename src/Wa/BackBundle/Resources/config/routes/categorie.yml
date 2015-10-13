@@ -1,3 +1,7 @@
+wa_back_categorie_index:
+    path: /index
+    defaults: { _controller: WaBackBundle:Categorie:index }
+
 wa_back_categorie_list:
     path: /list
     defaults: { _controller: WaBackBundle:Categorie:list }

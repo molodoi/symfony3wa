@@ -8,6 +8,7 @@ use Wa\BackBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wa\BackBundle\Form\CategoryType;
 
 class CategorieController extends Controller
 {
@@ -15,11 +16,7 @@ class CategorieController extends Controller
 
         $category = new Category();
 
-        $formCategory = $this->createFormBuilder($category)
-            ->add('title')
-            ->add('description')
-            ->add('position', 'integer')
-            ->getForm();
+        $formCategory = $form = $this->createForm(new CategoryType(), $category);
 
         $formCategory->handleRequest($request);
 
@@ -49,23 +46,22 @@ class CategorieController extends Controller
 
     }
 
-    public function editAction($id, Request $request){
+    public function editAction(Category $category, Request $request){
 
+        /*
         $repository = $this->getDoctrine()
             ->getManager()
             ->getRepository('WaBackBundle:Category')
         ;
 
         $category = $repository->find($id);
+        */
 
         if (!$category) {
             throw new NotFoundHttpException("La catégorie id ".$id." n'existe pas.");
         }
 
-        $formCategory = $this->createFormBuilder($category)
-            ->add('title')
-            ->add('description')
-            ->getForm();
+        $formCategory = $form = $this->createForm(new CategoryType(), $category);
 
         $formCategory->handleRequest($request);
 
@@ -113,8 +109,9 @@ class CategorieController extends Controller
 
     }
 
-    public function showAction($id, Request $request)
+    public function showAction(Category $category, Request $request)
     {
+        /*
         $em = $this->getDoctrine()->getManager();
 
         $repository = $this->getDoctrine()
@@ -122,7 +119,9 @@ class CategorieController extends Controller
             ->getRepository('WaBackBundle:Category')
         ;
 
+
         $category = $repository->find($id);
+        */
 
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Product entity.');
@@ -136,12 +135,12 @@ class CategorieController extends Controller
 
     }
 
-    public function deleteAction($id, Request $request){
+    public function deleteAction(Category $category,  Request $request){
 
-
+        /*
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository('WaBackBundle:Category')->find($id);
-
+        */
 
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Category entity.');
@@ -154,6 +153,15 @@ class CategorieController extends Controller
         $session->getFlashBag()->add('info', $category->getTitle(). ' supprimé');
 
         return $this->redirectToRoute('wa_back_categorie_list');
+    }
+
+    public function indexAction(){
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('WaBackBundle:Category')->findAllPerso();
+
+        return $this->render('WaBackBundle:Categorie:index.html.twig', array(
+            'categories' => $categories
+        ));
     }
 
 }

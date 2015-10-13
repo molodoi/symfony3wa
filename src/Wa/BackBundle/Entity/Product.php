@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Product
  *
  * @ORM\Table(name="product")
- * @ORM\Entity(repositoryClass="Wa\BackBundle\Entity\ProductRepository")
+ * @ORM\Entity(repositoryClass="Wa\BackBundle\Repository\ProductRepository")
  */
 class Product
 {
@@ -69,6 +69,12 @@ class Product
      * @ORM\Column(name="date_created", type="datetime")
      */
     private $dateCreated;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     **/
+    private $category;
 
 
     public function __construct(){
@@ -205,5 +211,34 @@ class Product
     public function getDateCreated()
     {
         return $this->dateCreated;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Wa\BackBundle\Entity\Category $category
+     *
+     * @return Product
+     */
+    public function setCategory(\Wa\BackBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Wa\BackBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

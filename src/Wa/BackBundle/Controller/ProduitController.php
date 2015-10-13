@@ -92,7 +92,8 @@ class ProduitController extends Controller
             ->getManager()
             ->getRepository('WaBackBundle:Product');
 
-        $products = $repository->findAll();
+        //$products = $repository->findAll();
+        $products = $repository->findAllProductsWithCategories();
 
         if (null === $products) {
             throw new NotFoundHttpException("Aucuns produits.");

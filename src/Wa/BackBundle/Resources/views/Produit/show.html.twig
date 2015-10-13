@@ -63,6 +63,10 @@
                         <dd>{{ produit.price }} €</dd>
                         <dt>Reference produit</dt>
                         <dd>{{ produit.id }}</dd>
+                        <dt>Categorie</dt>
+                        {% if produit.category is not null %}
+                        <dd>{{ produit.category.title }}</dd>
+                        {% endif %}
                         <dt>Date création produit</dt>
                         <dd>{{ produit.dateCreated|date("d/m/Y") }}</dd>
                     </dl>

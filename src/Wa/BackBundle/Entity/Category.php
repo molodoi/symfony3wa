@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="Wa\BackBundle\Entity\CategoryRepository")
+ * @ORM\Entity(repositoryClass="Wa\BackBundle\Repository\CategoryRepository")
  */
 class Category
 {
@@ -232,6 +232,11 @@ class Category
         }
 
         return true;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
 }

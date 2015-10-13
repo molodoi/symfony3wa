@@ -6,10 +6,9 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Wa\BackBundle\Repository\CategoryRepository;
 
 
-class ProductType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -20,26 +19,22 @@ class ProductType extends AbstractType
         $builder
             ->add('title', 'text')
             ->add('description', 'textarea')
-            ->add('price', 'number')
-            ->add('quantity', 'integer')
             ->add('dateCreated', 'date',
                 array(
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy'
                 )
             )
-            ->add('category'
-                , 'entity',
+
+            ->add('active', 'checkbox',
                 array(
-                    'class' => 'Wa\BackBundle\Entity\Category',
-                    'choice_label' => 'title',
-                    'query_builder' => function (CategoryRepository $er){
-                        return $er->getCategoriesOrderByPosition();
-                    },
-                    'read_only' => true
+                    'label'    => 'Activer la catégorie',
+                    'required' => true,
                 )
-            );
-            //Le bouton submit est à ajouter de préférence en static dans les vues
+            )
+            ->add('position')
+        ;
+        //Le bouton submit est à ajouter de préférence en static dans les vues
     }
 
     /**
@@ -48,7 +43,7 @@ class ProductType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Wa\BackBundle\Entity\Product'
+            'data_class' => 'Wa\BackBundle\Entity\Category'
         ));
     }
 
@@ -57,6 +52,6 @@ class ProductType extends AbstractType
      */
     public function getName()
     {
-        return 'wa_backbundle_product';
+        return 'wa_backbundle_category';
     }
 }

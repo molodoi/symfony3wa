@@ -2,6 +2,11 @@
 
 {% block title %}Créer un Catégorie - Application{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
 {% block content %}
     {{ parent() }}
     <h1>Créer un Catégorie</h1>
@@ -42,6 +47,18 @@
                 {{ form_widget(formCategory.position, { 'attr': {'class': 'form-control', 'placeholder': 'Position'} }) }}
             </div>
 
+            {{ form_label(formCategory.active) }}
+            <div class="form-group {% if form_errors(formCategory.active) %} has-error {% endif %}">
+                {{ form_errors(formCategory.active) }}
+                {{ form_widget(formCategory.active) }}
+            </div>
+
+            {{ form_label(formCategory.dateCreated) }}
+            <div class="form-group {% if form_errors(formCategory.dateCreated) %} has-error {% endif %}">
+                {{ form_errors(formCategory.dateCreated) }}
+                {{ form_widget(formCategory.dateCreated, { 'attr': {'class': 'datepicker', 'placeholder': 'Date de Création'} }) }}
+            </div>
+
             <div class="box-footer">
 
                 <button class="btn btn-sm btn-info btn-flat pull-left">Envoyer</button>
@@ -52,4 +69,15 @@
         </div>
         {{ form_end(formCategory) }}
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://jqueryui.com/resources/demos/datepicker/datepicker-fr.js"></script>
+    <script>
+        $(function() {
+            $( ".datepicker" ).datepicker(
+                    $.datepicker.regional["fr"]
+            );
+        });
+    </script>
 {% endblock %}
