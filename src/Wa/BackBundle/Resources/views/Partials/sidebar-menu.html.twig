@@ -34,6 +34,25 @@
     </li>
 
 
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-navicon"></i> <span>Marques</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.attributes.get('_route') == 'wa_back_feedback' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_feedback') }}">Feedback</a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-navicon"></i> <span>Catégorie</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            {{ render(controller("WaBackBundle:Categorie:getAllCategories")) }}
+        </ul>
+    </li>
 
     <li class="treeview">
         <a href="#">

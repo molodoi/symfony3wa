@@ -59,6 +59,12 @@ class Category
      */
     private $active;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     **/
+    private $image;
+
     public function __construct(){
         $this->dateCreated = new \DateTime('NOW');
         $this->active = true;
@@ -239,4 +245,27 @@ class Category
         return $this->title;
     }
 
+    /**
+     * Set image
+     *
+     * @param \Wa\BackBundle\Entity\Image $image
+     *
+     * @return Category
+     */
+    public function setImage(\Wa\BackBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Wa\BackBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
 }

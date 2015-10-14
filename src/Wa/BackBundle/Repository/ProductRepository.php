@@ -6,6 +6,17 @@ use Doctrine\ORM\EntityRepository;
 
 class ProductRepository extends EntityRepository
 {
+    public function findProductByQuanity($quantity = 5){
+        $query = $this->getEntityManager()->createQuery(
+                "SELECT prod
+                FROM WaBackBundle:Product prod
+                WHERE prod.quantity < :qty"
+            )
+            ->setParameter('qty', $quantity);
+
+        return $query->getResult();
+    }
+
     public function findAllPerso(){
 
         /*

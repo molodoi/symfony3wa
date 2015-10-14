@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wa\BackBundle\Repository\CategoryRepository;
+use Wa\BackBundle\Repository\MarqueRepository;
 
 
 class ProductType extends AbstractType
@@ -33,12 +34,24 @@ class ProductType extends AbstractType
                 array(
                     'class' => 'Wa\BackBundle\Entity\Category',
                     'choice_label' => 'title',
-                    'query_builder' => function (CategoryRepository $er){
-                        return $er->getCategoriesOrderByPosition();
+                    'query_builder' => function (CategoryRepository $cr){
+                        return $cr->getCategoriesOrderByPosition();
                     },
                     'read_only' => true
                 )
-            );
+            )
+            ->add('marque'
+                , 'entity',
+                array(
+                    'class' => 'Wa\BackBundle\Entity\Marque',
+                    'choice_label' => 'title',
+                    'query_builder' => function (MarqueRepository $mr){
+                        return $mr->getMarqueOrderByTitleAsc();
+                    },
+                    'read_only' => true
+                )
+            )
+            ;
             //Le bouton submit est à ajouter de préférence en static dans les vues
     }
 

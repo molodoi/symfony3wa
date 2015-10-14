@@ -13,6 +13,10 @@
                             Active
                         </span>
                     {% endif %}
+
+                    {% if categorie.image %}
+                        <img src="{{ asset(categorie.image.webPath) }}" />
+                    {% endif %}
                 </h3>
             <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>

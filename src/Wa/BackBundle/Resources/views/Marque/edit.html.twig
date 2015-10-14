@@ -1,0 +1,16 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Marque edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('wa_back_marque') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

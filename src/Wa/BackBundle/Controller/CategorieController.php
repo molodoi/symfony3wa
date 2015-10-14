@@ -22,9 +22,15 @@ class CategorieController extends Controller
 
         if($formCategory->isValid()){
 
-            //$em = $this->get("doctrine");
-
             $em = $this->getDoctrine()->getManager();
+
+            $image = $category->getImage();
+
+            $image->upload();
+
+            //$em->persist($image);
+
+            //$em->flush();
 
             $em->persist($category);
 
@@ -47,15 +53,6 @@ class CategorieController extends Controller
     }
 
     public function editAction(Category $category, Request $request){
-
-        /*
-        $repository = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('WaBackBundle:Category')
-        ;
-
-        $category = $repository->find($id);
-        */
 
         if (!$category) {
             throw new NotFoundHttpException("La catégorie id ".$id." n'existe pas.");
@@ -160,6 +157,15 @@ class CategorieController extends Controller
         $categories = $em->getRepository('WaBackBundle:Category')->findAllPerso();
 
         return $this->render('WaBackBundle:Categorie:index.html.twig', array(
+            'categories' => $categories
+        ));
+    }
+
+    public function getAllCategoriesAction(){
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('WaBackBundle:Category')->findLastCategories();
+
+        return $this->render('WaBackBundle:Categorie/Partials:renderCategories.html.twig', array(
             'categories' => $categories
         ));
     }

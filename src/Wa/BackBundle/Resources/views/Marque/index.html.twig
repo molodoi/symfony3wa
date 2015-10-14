@@ -1,0 +1,63 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block content %}
+    {{ parent() }}
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Marque</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-header">
+                <h3 class="box-title">Marque Table</h3>
+                <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                        <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="product-detail" class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Titre</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td><a href="{{ path('wa_back_marque_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                                    <td>{{ entity.title }}</td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ path('wa_back_marque_show', { 'id': entity.id }) }}">show</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('wa_back_marque_edit', { 'id': entity.id }) }}">edit</a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a href="{{ path('wa_back_marque_new') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer une Marque</a>
+                </div><!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -23,6 +23,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
             $product->setPrice($i);
             $product->setQuantity($i);
             $product->setCategory($manager->merge($this->getReference('category')));
+            $product->setMarque($manager->merge($this->getReference('marque')));
             $product->setDateCreated(new \DateTime('NOW'));
             $manager->persist($product);
         }
@@ -32,6 +33,6 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 2; // the order in which fixtures will be loaded
+        return 3; // the order in which fixtures will be loaded
     }
 }

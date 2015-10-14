@@ -29,6 +29,24 @@
         {{ form_start(formProduct, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
         <div class="box-body">
 
+            {{ form_label(formProduct.marque) }}
+            <div class="form-group {% if form_errors(formProduct.marque) %} has-error {% endif %}">
+                {{ form_errors(formProduct.marque) }}
+                {{ form_widget(formProduct.marque, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formProduct.category) }}
+            <div class="form-group {% if form_errors(formProduct.category) %} has-error {% endif %}">
+                {{ form_errors(formProduct.category) }}
+                {{ form_widget(formProduct.category, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formProduct.title) }}
+            <div class="form-group {% if form_errors(formProduct.title) %} has-error {% endif %}">
+                {{ form_errors(formProduct.title) }}
+                {{ form_widget(formProduct.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
             {{ form_label(formProduct.title) }}
             <div class="form-group {% if form_errors(formProduct.title) %} has-error {% endif %}">
                 {{ form_errors(formProduct.title) }}

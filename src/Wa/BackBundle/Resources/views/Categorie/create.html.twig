@@ -39,6 +39,11 @@
                 {{ form_widget(formCategory.position, { 'attr': {'class': 'form-control', 'placeholder': 'Position'} }) }}
             </div>
 
+            <div class="form-group">
+                {{ form_label(formCategory.image.children.file) }}
+                {{ form_widget(formCategory.image.children.file) }}
+            </div>
+
             {{ form_label(formCategory.active) }}
             <div class="form-group {% if form_errors(formCategory.active) %} has-error {% endif %}">
                 {{ form_errors(formCategory.active) }}
@@ -50,7 +55,6 @@
                 {{ form_errors(formCategory.dateCreated) }}
                 {{ form_widget(formCategory.dateCreated, { 'attr': {'class': 'datepicker', 'placeholder': 'Date de Création'} }) }}
             </div>
-
 
             <div class="box-footer">
                 <button>Envoyer</button>

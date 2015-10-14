@@ -33,6 +33,7 @@ class CategoryType extends AbstractType
                 )
             )
             ->add('position')
+            ->add('image', new ImageType())
         ;
         //Le bouton submit est à ajouter de préférence en static dans les vues
     }

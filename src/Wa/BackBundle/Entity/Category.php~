@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="Wa\BackBundle\Entity\CategoryRepository")
+ * @ORM\Entity(repositoryClass="Wa\BackBundle\Repository\CategoryRepository")
  */
 class Category
 {
@@ -59,9 +59,14 @@ class Category
      */
     private $active;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Image", cascade={"persist"})
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     **/
+    private $image;
+
     public function __construct(){
         $this->dateCreated = new \DateTime('NOW');
-        $this->position = 1;
         $this->active = true;
     }
 
@@ -171,29 +176,36 @@ class Category
         return $this->active;
     }
 
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return Category
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
 
+        return $this;
+    }
 
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
 
     /**
      * @Assert\Callback
      */
-    public function isTitleValid(ExecutionContextInterface $context)
+    public function isValid(ExecutionContextInterface $context)
     {
-        if(!preg_match('/[A-Z]/', $this->getTitle())){
-            $context
-                ->buildViolation('Tous les caractères de votre titre ne sont pas en majuscules!')
-                ->atPath('title')
-                ->addViolation()
-            ;
-        }
-    }
-
-    /**
-    * @Assert\Callback
-    */
-    public function isContentValid(ExecutionContextInterface $context)
-    {
-    $forbiddenWords = array('catégorie', 'categorie', 'Catégorie', 'Categorie');
+        $forbiddenWords = array('catégorie', 'categorie', 'Catégorie', 'Categorie');
 
         // On vérifie que le contenu ne contient pas l'un des mots
         if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getDescription())) {
@@ -204,5 +216,56 @@ class Category
                 ->addViolation()
             ;
         }
+
+        //Le titre doit être en majuscule
+        if(!preg_match('/[A-Z]/', $this->getTitle())){
+            $context
+                ->buildViolation('Tous les caractères de votre titre ne sont pas en majuscules!')
+                ->atPath('title')
+                ->addViolation()
+            ;
+        }
+    }
+
+    /**
+     * @Assert\True(message="La position est 1 le titre doit être ACCUEIL.")
+     */
+    public function isCategoryValid()
+    {
+        // On vérifie que le contenu ne contient pas l'un des mots
+        if ($this->getPosition() === 1 && $this->getTitle() != "ACCUEIL") {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \Wa\BackBundle\Entity\Image $image
+     *
+     * @return Category
+     */
+    public function setImage(\Wa\BackBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Wa\BackBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }

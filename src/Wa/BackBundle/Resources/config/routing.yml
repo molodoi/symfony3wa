@@ -1,12 +1,15 @@
+wa_back_marque:
+    resource: "@WaBackBundle/Resources/config/routing/marque.yml"
+    prefix:   /marque
+
 wa_back_categorie:
-    resource: "@WaBackBundle/Resources/config/routes/categorie.yml"
+    resource: "@WaBackBundle/Resources/config/routing/categorie.yml"
     prefix:   /categorie
 
 wa_back_produit:
-    resource: "@WaBackBundle/Resources/config/routes/produit.yml"
+    resource: "@WaBackBundle/Resources/config/routing/produit.yml"
     prefix:   /produit
 
 wa_back:
-    resource: "@WaBackBundle/Resources/config/routes/main.yml"
+    resource: "@WaBackBundle/Resources/config/routing/main.yml"
     prefix:   /
-

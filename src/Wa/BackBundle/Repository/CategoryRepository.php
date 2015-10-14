@@ -6,6 +6,13 @@ use Doctrine\ORM\EntityRepository;
 
 class CategoryRepository extends EntityRepository
 {
+    public function findLastCategories(){
+        $q = $this->createQueryBuilder('v')
+            ->setMaxResults(5)
+            ->getQuery();
+        //die(dump($q->getResult()));
+        return $q->getResult();
+    }
 
     public function findAllPerso(){
 

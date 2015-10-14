@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Product
  *
  * @ORM\Table(name="product")
- * @ORM\Entity(repositoryClass="Wa\BackBundle\Entity\ProductRepository")
+ * @ORM\Entity(repositoryClass="Wa\BackBundle\Repository\ProductRepository")
  */
 class Product
 {
@@ -75,6 +75,12 @@ class Product
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      **/
     private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Marque")     *
+     * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=false)
+     **/
+    private $marque;
 
 
     public function __construct(){
@@ -227,6 +233,7 @@ class Product
         return $this;
     }
 
+
     /**
      * Get category
      *
@@ -236,4 +243,11 @@ class Product
     {
         return $this->category;
     }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+
 }

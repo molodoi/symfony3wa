@@ -76,6 +76,12 @@ class Product
      **/
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Marque")     *
+     * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=false)
+     **/
+    private $marque;
+
 
     public function __construct(){
         $this->dateCreated = new \DateTime('NOW');
@@ -227,6 +233,7 @@ class Product
         return $this;
     }
 
+
     /**
      * Get category
      *
@@ -237,8 +244,33 @@ class Product
         return $this->category;
     }
 
+    /**
+     * Set marque
+     *
+     * @param \Wa\BackBundle\Entity\Marque $marque
+     *
+     * @return Product
+     */
+    public function setMarque(\Wa\BackBundle\Entity\Marque $marque)
+    {
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    /**
+     * Get marque
+     *
+     * @return \Wa\BackBundle\Entity\Marque
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+
     public function __toString()
     {
         return $this->title;
     }
+
 }
