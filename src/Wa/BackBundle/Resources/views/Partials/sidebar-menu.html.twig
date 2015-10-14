@@ -10,14 +10,6 @@
                 <a href="{{ path('wa_back_homepage') }}"  >Accueil</a>
             </li>
 
-            <li {% if app.request.attributes.get('_route') == 'wa_back_categorie_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
-                <a href="{{ path('wa_back_categorie_list') }}">Catégories</a>
-            </li>
-
-            <li {% if app.request.attributes.get('_route') == 'wa_back_produit_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
-                <a href="{{ path('wa_back_produit_list') }}">Produits</a>
-            </li>
-
             <li {% if app.request.attributes.get('_route') == 'wa_back_contact' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_contact') }}">Contact</a>
             </li>
@@ -32,27 +24,52 @@
 
         </ul>
     </li>
-
+    
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-navicon"></i> <span>Produit</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.attributes.get('_route') == 'wa_back_produit_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_produit_list') }}">Toutes les Produits</a>
+            </li>
+            <li {% if app.request.attributes.get('_route') == 'wa_back_produit_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_produit_create') }}">Créer un Produit</a>
+            </li>
+            {# render(controller("WaBackBundle:Categorie:getAllCategories")) #}
+        </ul>
+    </li>
+    
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-navicon"></i> <span>Catégorie</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.attributes.get('_route') == 'wa_back_categorie_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_categorie_list') }}">Toutes les Catégories</a>
+            </li>
+            <li {% if app.request.attributes.get('_route') == 'wa_back_categorie_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_categorie_create') }}">Créer une Catégorie</a>
+            </li>
+            {# render(controller("WaBackBundle:Categorie:getAllCategories")) #}
+        </ul>
+    </li>
 
     <li class="active treeview">
         <a href="#">
             <i class="fa fa-navicon"></i> <span>Marques</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li {% if app.request.attributes.get('_route') == 'wa_back_feedback' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
-                <a href="{{ path('wa_back_feedback') }}">Feedback</a>
+            <li {% if app.request.attributes.get('_route') == 'wa_wa_back_marque' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_marque') }}">Toutes les Marques</a>
+            </li>
+            <li {% if app.request.attributes.get('_route') == 'wa_back_marque_new' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_marque_new') }}">Créer une Marque</a>
             </li>
         </ul>
     </li>
 
-    <li class="active treeview">
-        <a href="#">
-            <i class="fa fa-navicon"></i> <span>Catégorie</span> <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-            {{ render(controller("WaBackBundle:Categorie:getAllCategories")) }}
-        </ul>
-    </li>
+    
 
     <li class="treeview">
         <a href="#">

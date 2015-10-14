@@ -15,8 +15,8 @@
                     <a href="{{ path('wa_back_marque') }}" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa-mail-reply"></i> Revenir à la liste des produits</a>
                     &nbsp;
                     &nbsp;
-                    <a href="{{ path('wa_back_marque_edit', {'id': produit.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ produit.title }}</a>
-                    <a href="{{ path('wa_back_marque_delete', {'id': produit.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ produit.title }}</a>
+                    <a href="{{ path('wa_back_marque_edit', {'id': entity.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ entity.title }}</a>
+                    <a href="{{ path('wa_back_marque_delete', {'id': entity.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ entity.title }}</a>
                     &nbsp;
                     {# form_start(delete_form) #}
                     <!-- button class="btn btn-danger pull-right">Danger</button -->
