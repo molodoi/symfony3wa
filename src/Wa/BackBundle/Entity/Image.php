@@ -191,7 +191,7 @@ class Image
     }
 
     public function webPath(){
-        return 'uploads/categories/';
+        return $this->getUploadDir().$this->title;
     }
 
     protected function getUploadRootDir()
