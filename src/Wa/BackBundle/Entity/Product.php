@@ -72,12 +72,12 @@ class Product
 
     /**
      * @ORM\ManyToOne(targetEntity="Category")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
      **/
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Marque")     *
+     * @ORM\ManyToOne(targetEntity="Marque")
      * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=false)
      **/
     private $marque;

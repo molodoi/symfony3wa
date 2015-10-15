@@ -24,13 +24,15 @@ class CategorieController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
+            /*
             $image = $category->getImage();
 
             $image->upload();
 
-            //$em->persist($image);
+            $em->persist($image);
 
-            //$em->flush();
+            $em->flush();
+            */
 
             $em->persist($category);
 
@@ -58,14 +60,15 @@ class CategorieController extends Controller
             throw new NotFoundHttpException("La catégorie id ".$id." n'existe pas.");
         }
 
-        $formCategory = $form = $this->createForm(new CategoryType(), $category);
+        $formCategory = $this->createForm(new CategoryType(), $category);
 
         $formCategory->handleRequest($request);
 
         if($formCategory->isValid()){
             //$em = $this->get("doctrine");
-            $em = $this->getDoctrine()->getManager();
 
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
             $em->flush();
 
             $session = $request->getSession();
@@ -132,25 +135,24 @@ class CategorieController extends Controller
 
     }
 
+
     public function deleteAction(Category $category,  Request $request){
 
-        /*
         $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('WaBackBundle:Category')->find($id);
-        */
 
-        if (!$category) {
-            throw $this->createNotFoundException('Unable to find Category entity.');
-        }
+        $title = $category->getTitle();
 
         $em->remove($category);
+
         $em->flush();
 
         $session = $request->getSession();
-        $session->getFlashBag()->add('info', $category->getTitle(). ' supprimé');
+        $session->getFlashBag()->add('info', $title. ' supprimé');
 
         return $this->redirectToRoute('wa_back_categorie_list');
     }
+
+
 
     public function indexAction(){
         $em = $this->getDoctrine()->getManager();
