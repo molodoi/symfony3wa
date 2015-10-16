@@ -133,7 +133,7 @@ class ProductRepository extends EntityRepository
 
         //return $qb->getQuery()->getResult();
         //return $qb->getQuery()->getResult();
-        die(dump($q->getResult()));
+        return $q->getResult();
 
     }
 
@@ -156,6 +156,72 @@ class ProductRepository extends EntityRepository
         //die(dump($q->getResult()));
         return $q->getResult();
     }
+
+    //Afficher les produits dont la catégorie est "Accueil"
+    public function findProductsWhereCategorieIsAccueil(){
+        $q = $this->createQueryBuilder('prod')
+            ->join('prod.category', 'cat')
+            ->where('cat.title = :title')
+            ->setParameter('title', 'ACCUEIL')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    //Afficher les produits qui n'ont pas de catégorie
+    public function findProductsDontHaveCategorie(){
+
+        $q = $this->createQueryBuilder('prod')
+            ->where('prod.category is null')
+            ->getQuery();
+
+        return $q->getResult();
+
+    }
+
+    //Afficher les produits qui n'ont pas de catégorie mais une marque
+    public function findProductsDontCatButBrand(){
+        $q = $this->createQueryBuilder('prod')
+            ->where('prod.category is null', 'prod.marque is not null')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    //Afficher le nombre de produit par catégorie  (récupérer le titre de la catégorie) Essayer d'afficher cela dans un "camembert"
+    public function findCountProductsCategorieId($category_id){
+        $q = $this->createQueryBuilder('prod')
+            ->select('COUNT(prod) as countProd', 'cat.title')
+            ->join('prod.category', 'cat')
+            ->addGroupBy('cat.id')
+            ->getQuery();
+        //die(dump($q->getResult()));
+        return $q->getResult();
+    }
+
+    // Afficher la catégorie du produit le plus cher sachant que la catégorie doit être active
+    public function findProductPriceMaxActiveByCategorie(){
+        $q = $this->createQueryBuilder('prod')
+            ->select('cat.title')
+            ->join('prod.category', 'cat')
+            ->where('cat.active = 1')
+            ->orderBy('prod.price', 'DESC')
+            ->setMaxResults('1')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
+    // Afficher le produit dont la description contient le mot "lorem"
+    public function findProductWhereDescLorem(){
+        $q = $this->createQueryBuilder('prod')
+            ->where('prod.description = :lorem')
+            ->setParameter('lorem','lorem')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
 
 
 }

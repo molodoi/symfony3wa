@@ -14,21 +14,22 @@ class LoadMarqueData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $faker = \Faker\Factory::create('fr_FR');
 
-                $marque01 = new Marque();
-                $marque01->setTitle('Marque 01');
+        $marque01 = new Marque();
+        $marque01->setTitle($faker->text(10));
 
-                $manager->persist($marque01);
+        $manager->persist($marque01);
 
-                $manager->flush();
+        $manager->flush();
 
-                $this>$this->addReference('marque', $marque01 );
+        $this->addReference('marque', $marque01 );
 
     }
 
     public function getOrder()
     {
-        return 2; // the order in which fixtures will be loaded
+        return 3; // the order in which fixtures will be loaded
     }
 
 }

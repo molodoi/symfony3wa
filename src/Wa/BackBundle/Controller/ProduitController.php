@@ -147,6 +147,16 @@ class ProduitController extends Controller
     public function indexAction(){
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
+        //$products = $em->getRepository('WaBackBundle:Product')->getProductsWhereCategorieIsAccueil();
+        //$products = $em->getRepository('WaBackBundle:Product')->getProductsDontHaveCategorie();
+        //$products = $em->getRepository('WaBackBundle:Product')->getProductsDontCatButBrand();
+        //$products = $em->getRepository('WaBackBundle:Product')->getCountProductsByCategorie();
+        //$products = $em->getRepository('WaBackBundle:Product')->getProductPriceMaxByActiveCategorie();
+        //$catges = $em->getRepository('WaBackBundle:Category')->getCategoriesWithoutImage();
+        //$products = $em->getRepository('WaBackBundle:Category')->getImageCaptionWherePositionIsMax();
+        //$products = $em->getRepository('WaBackBundle:Category')->getCategorieWhereMaxlenghtCaption();
+
+
 
         return $this->render('WaBackBundle:Produit:index.html.twig', array(
             'products' => $products

@@ -15,15 +15,17 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
 
+        $faker = \Faker\Factory::create('fr_FR');
+
 
         for ($i = 1; $i <= 25; $i++){
             $product = new Product();
-            $product->setTitle('Produit '.$i);
-            $product->setDescription('Desc produit '.$i);
-            $product->setPrice($i);
-            $product->setQuantity($i);
-            $product->setCategory($manager->merge($this->getReference('category')));
-            $product->setMarque($manager->merge($this->getReference('marque')));
+            $product->setTitle($faker->text(10).' '.$i);
+            $product->setDescription($faker->text(100).' '.$i);
+            $product->setPrice($faker->randomFloat);
+            $product->setQuantity($faker->randomDigitNotNull);
+            $product->setCategory($this->getReference('category'));
+            $product->setMarque($this->getReference('marque'));
             $product->setDateCreated(new \DateTime('NOW'));
             $manager->persist($product);
         }
@@ -33,6 +35,6 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 3; // the order in which fixtures will be loaded
+        return 4; // the order in which fixtures will be loaded
     }
 }

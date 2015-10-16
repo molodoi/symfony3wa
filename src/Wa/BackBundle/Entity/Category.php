@@ -256,10 +256,18 @@ class Category
     public function setImage(\Wa\BackBundle\Entity\Image $image = null)
     {
         //die(dump($image));
-        if($image == null || !$image->getFile()){
+        if($image == null || !$image->getFile())
+        {
             $image = null;
         }
 
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function setImageFixture( $image = null)
+    {
         $this->image = $image;
 
         return $this;
