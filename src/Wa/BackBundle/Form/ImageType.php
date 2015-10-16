@@ -16,6 +16,9 @@ class ImageType extends AbstractType
     {
         $builder
             // Création d'un champ qui correspond à la propriété file de type file
+            ->add('title','text')
+            ->add('alt','text')
+            ->add('caption','text')
             ->add('file','file')
         ;
     }

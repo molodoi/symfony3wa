@@ -40,7 +40,7 @@
                             {% for categorie in categories %}
                                 <tr>
                                     <td>{{ categorie.id }}</td>
-                                    <td><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a></td>
+                                    <td><a href="{{ path('wa_back_categorie_edit', {'id': categorie.id}) }}">{{ categorie.title }}</a></td>
                                     <td>{{ categorie.description|striptags|nl2br }}</td>
                                     <td>
                                         {% if categorie.active %}

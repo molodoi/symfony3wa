@@ -4,12 +4,16 @@ namespace Wa\BackBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 
 /**
  * Image
  *
  * @ORM\Table(name="image")
  * @ORM\Entity(repositoryClass="Wa\BackBundle\Repository\ImageRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Image
 {
@@ -51,7 +55,17 @@ class Image
     private $caption;
 
     //File va récupérer le fichier
+
+    /**
+     * @Assert\File(
+     *     maxSize = "500k",
+     *     mimeTypes = {"image/jpeg", "image/png", "image/gif"},
+     *     mimeTypesMessage = "Please upload a valid Iamge type jpeg, png, gif"
+     * )
+     */
     private $file;
+
+    private $oldName;
 
     /**
      * Get id
@@ -119,13 +133,6 @@ class Image
         return $this->file;
     }
 
-    /**
-     * @param mixed $file
-     */
-    public function setFile(UploadedFile $file)
-    {
-        return $this->file = $file;
-    }
 
     /**
      * Set alt
@@ -175,23 +182,35 @@ class Image
         return $this->caption;
     }
 
-    public function upload()
+    /**
+     * @param mixed $file
+     *
+     * @return File
+     */
+    public function setFile(UploadedFile $file)
     {
-        $nameImage = $this->file->getClientOriginalName();
 
-        $this->file->move(
-            __DIR__.'/../../../../web/uploads/c ategories/',
-            $nameImage
-        );
+        $this->file = $file;
 
-        $this->title = $nameImage;
-        $this->path = $nameImage;
-        $this->alt = $nameImage;
-        $this->caption = $nameImage;
+        if($this->path != null){
+
+            $this->oldName = $this->path;
+
+            $this->path = 'lmkfd';
+
+        }
+
+        return $this;
     }
 
-    public function webPath(){
-        return $this->getUploadDir().$this->title;
+    public function webPath($thumbs = null){
+
+        if(!empty($thumbs)){
+            if(file_exists($this->getUploadDir().$thumbs.$this->path)){
+                return $this->getUploadDir().$thumbs.$this->path;
+            }
+        }
+        return $this->getUploadDir().$this->path;
     }
 
     protected function getUploadRootDir()
@@ -208,9 +227,107 @@ class Image
         return 'uploads/categories/';
     }
 
+    protected $thumbnails = array(
+            'thumb-100-100-' => array(100,100),
+            'thumb-400-400-' => array(400,400),
+            'thumb-800-800-' => array(800,800),
+        );
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function upload()
+    {
+        //upload de l'image
+
+        //die('code de suppression');
+        if($this->file == null)
+            return;
+
+        $extension = $this->file->guessExtension();
+
+        $nameImage = uniqid().'.'.$extension;
+
+        $this->file->move(
+            //__DIR__.'/../../../../web/uploads/categories/',
+            $this->getUploadRootDir(),
+            $nameImage
+        );
+
+        $this->path = $nameImage;
+
+        // Creation des thumbnails
+        $imagine = new \Imagine\Gd\Imagine();
+        $imagineOpen = $imagine->open($this->getUploadRootDir().$nameImage);
+        //REDIMENSIONNE ET GARDE LES PROPORTIONS
+        $mode1    = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+        //REDIMENSIONNE ET CROP
+        $mode2    = \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
+
+        foreach ($this->thumbnails as $key => $value ){
+            $imagineOpen->thumbnail(
+                new \Imagine\Image\Box(
+                    $value[0],
+                    $value[1]
+                ),
+                $mode1
+            )
+            ->save($this->getUploadRootDir().$key.$nameImage);
+        }
+
+        //suppression de l'ancienne image
+        if(!empty($this->oldName)){
+            if(file_exists($this->getUploadRootDir().$this->oldName)){
+                unlink($this->getUploadRootDir().$this->oldName);
+            }
+        }
+    }
+
+    /**
+     * @ORM\PreRemove()
+     */
+    public function preRemoveFile(){
+
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeFile(){
+        //die(dump($this->getUploadRootDir().$this->path));
+        //suppression de l'ancienne image
+
+        if(file_exists($this->getUploadRootDir().$this->path)){
+            unlink($this->getUploadRootDir().$this->path);
+        }
+
+        foreach($this->thumbnails as $nameThumb => $size)
+        {
+            if (file_exists($this->getUploadRootDir().$nameThumb.$this->path))
+            {
+                //unlink($this->getUploadRootDir().$nameThumb.$this->path);
+                unlink($this->getUploadRootDir().$nameThumb.$this->path);
+            }
+        }
+    }
+
     public function __toString()
     {
         return $this->title;
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function isValide(ExecutionContextInterface $context)
+    {
+
+        if ($this->file != null && $this->caption == null)  {
+            $context->buildViolation('Tu dois insérer un caption')
+                ->atPath('caption')
+                ->addViolation();
+        }
     }
 
 }

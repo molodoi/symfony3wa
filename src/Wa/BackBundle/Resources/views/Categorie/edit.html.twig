@@ -16,9 +16,6 @@
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h4><i class="icon fa fa-ban"></i> Alerte!</h4>
             Tous les champs de votre formulaire n'ont pas été validé.
-            {%- for error in errors -%}
-                <p class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error.message }}</p>
-            {%- endfor -%}
         </div>
     {% endif %}
 
@@ -45,6 +42,30 @@
             <div class="form-group {% if form_errors(formCategory.position) %} has-error {% endif %}">
                 {{ form_errors(formCategory.position) }}
                 {{ form_widget(formCategory.position, { 'attr': {'class': 'form-control', 'placeholder': 'Position'} }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(formCategory.image.children.file) }}
+                {{ form_errors(formCategory.image.children.file) }}
+                {{ form_widget(formCategory.image.children.file) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(formCategory.image.children.title) }}
+                {{ form_errors(formCategory.image.children.title) }}
+                {{ form_widget(formCategory.image.children.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(formCategory.image.children.alt) }}
+                {{ form_errors(formCategory.image.children.alt) }}
+                {{ form_widget(formCategory.image.children.alt, { 'attr': {'class': 'form-control', 'placeholder': 'Alt'} }) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(formCategory.image.children.caption) }}
+                {{ form_errors(formCategory.image.children.caption) }}
+                {{ form_widget(formCategory.image.children.caption, { 'attr': {'class': 'form-control', 'placeholder': 'Légende'} }) }}
             </div>
 
             {{ form_label(formCategory.active) }}
