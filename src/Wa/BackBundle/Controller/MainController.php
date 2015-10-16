@@ -65,8 +65,31 @@ class MainController extends Controller
                 "prix" => 410
             ],
         ];
+
+        $em = $this->getDoctrine()->getManager();
+        $products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
+        $prodCatNameAccueil = $em->getRepository('WaBackBundle:Product')->findProductsWhereCategorieIsAccueil();
+        $prodsWithoutCat = $em->getRepository('WaBackBundle:Product')->findProductsDontHaveCategorie();
+        $prodsWithoutCatButBrand = $em->getRepository('WaBackBundle:Product')->findProductsDontCatButBrand();
+        $countProdsByCat = $em->getRepository('WaBackBundle:Product')->findCountProductsCategorieId(121);
+        $prodPriceMaxActiveCat = $em->getRepository('WaBackBundle:Product')->findProductPriceMaxActiveByCategorie();
+        $catWithoutImage = $em->getRepository('WaBackBundle:Category')->findCategoriesWithoutImage();
+        $imgCaptionPosMax = $em->getRepository('WaBackBundle:Category')->findImageCaptionWherePositionIsMax();
+        //$catWhereCaptionMaxlenght = $em->getRepository('WaBackBundle:Category')->findCategorieWhereMaxlenghtCaption();
+
         return $this->render('WaBackBundle:Main:admin.html.twig',
-            array('categories' => $categories, 'products' => $products)
+            array('categories' => $categories, 'products' => $products,
+                'countProdsByCat' => $countProdsByCat,
+                compact(
+                    $prodCatNameAccueil,
+                    $prodsWithoutCat,
+                    $prodsWithoutCatButBrand,
+                    $catWithoutImage,
+                    $imgCaptionPosMax,
+                    //$catWhereCaptionMaxlenght,
+                    $prodPriceMaxActiveCat
+                )
+            )
         );
 
     }
