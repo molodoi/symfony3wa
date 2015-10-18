@@ -13,11 +13,9 @@ use Wa\BackBundle\Form\ChatType;
  */
 class ChatController extends Controller {
 
-    /**
-     * Lists all Brand entities.
-     *
-     */
+    
     public function recentsMessagesChatAction() {
+        
         $em = $this->getDoctrine()->getManager();
 
         $messages = $em->getRepository('WaBackBundle:Chat')->findBy(
@@ -26,10 +24,25 @@ class ChatController extends Controller {
                 5, //* Limite                           
                 0
         );
+        
+        /*
+        $formMessage = $this->createForm(
+                new ChatType(), 
+                    $messages, 
+                    array(
+                        'action' => $this->generateUrl('wa_back_homepage'),
+                        'method' => 'POST'
+                    )
+                );
+         * 
+         */
 
         return $this->render('WaBackBundle:Chat:Partials/recents-messages-chat.html.twig', array(
-                    'messages' => $messages,
-                ));
+            'messages' => $messages,
+            //'formMessage' => $formMessage->createView()
+        ));
+        
+        
     }
 
 }
