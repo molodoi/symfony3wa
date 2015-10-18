@@ -1,0 +1,30 @@
+wa_back_brand:
+    path:     /
+    defaults: { _controller: "WaBackBundle:Brand:index" }
+
+wa_back_brand_show:
+    path:     /{id}/show
+    defaults: { _controller: "WaBackBundle:Brand:show" }
+
+wa_back_brand_new:
+    path:     /new
+    defaults: { _controller: "WaBackBundle:Brand:new" }
+
+wa_back_brand_create:
+    path:     /create
+    defaults: { _controller: "WaBackBundle:Brand:create" }
+    methods:  POST
+
+wa_back_brand_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WaBackBundle:Brand:edit" }
+
+wa_back_brand_update:
+    path:     /{id}/update
+    defaults: { _controller: "WaBackBundle:Brand:update" }
+    methods:  [POST, PUT]
+
+wa_back_brand_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WaBackBundle:Brand:delete" }
+    methods:  [POST, DELETE]

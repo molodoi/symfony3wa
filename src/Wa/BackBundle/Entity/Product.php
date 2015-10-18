@@ -77,17 +77,27 @@ class Product
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Marque")
-     * @ORM\JoinColumn(name="marque_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Brand")
+     * @ORM\JoinColumn(name="brand_id", referencedColumnName="id", nullable=false)
      **/
-    private $marque;
+    private $brand;
+    
 
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
+     **/
+    private $comments;
+  
 
-    public function __construct(){
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
         $this->dateCreated = new \DateTime('NOW');
         $this->quantity = 1;
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -233,7 +243,6 @@ class Product
         return $this;
     }
 
-
     /**
      * Get category
      *
@@ -245,32 +254,60 @@ class Product
     }
 
     /**
-     * Set marque
+     * Set Brand
      *
-     * @param \Wa\BackBundle\Entity\Marque $marque
+     * @param \Wa\BackBundle\Entity\Brand $brand
      *
      * @return Product
      */
-    public function setMarque(\Wa\BackBundle\Entity\Marque $marque)
+    public function setBrand(\Wa\BackBundle\Entity\Brand $brand)
     {
-        $this->marque = $marque;
+        $this->brand = $brand;
 
         return $this;
     }
 
     /**
-     * Get marque
+     * Get Brand
      *
-     * @return \Wa\BackBundle\Entity\Marque
+     * @return \Wa\BackBundle\Entity\Brand
      */
-    public function getMarque()
+    public function getBrand()
     {
-        return $this->marque;
+        return $this->brand;
     }
 
-    public function __toString()
+    /**
+     * Add comment
+     *
+     * @param \Wa\BackBundle\Entity\Comment $comment
+     *
+     * @return Product
+     */
+    public function addComment(\Wa\BackBundle\Entity\Comment $comment)
     {
-        return $this->title;
+        $this->comments[] = $comment;
+
+        return $this;
     }
 
+    /**
+     * Remove comment
+     *
+     * @param \Wa\BackBundle\Entity\Comment $comment
+     */
+    public function removeComment(\Wa\BackBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

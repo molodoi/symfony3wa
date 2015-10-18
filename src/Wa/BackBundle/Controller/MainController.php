@@ -78,7 +78,8 @@ class MainController extends Controller
         //$catWhereCaptionMaxlenght = $em->getRepository('WaBackBundle:Category')->findCategorieWhereMaxlenghtCaption();
 
         return $this->render('WaBackBundle:Main:admin.html.twig',
-            array('categories' => $categories, 'products' => $products,
+            array(
+                //'categories' => $categories, 'products' => $products,
                 'countProdsByCat' => $countProdsByCat,
                 compact(
                     $prodCatNameAccueil,

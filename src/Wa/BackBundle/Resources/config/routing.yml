@@ -1,14 +1,18 @@
-wa_back_marque:
-    resource: "@WaBackBundle/Resources/config/routing/marque.yml"
-    prefix:   /marque
+wa_back_chat:
+    resource: "@WaBackBundle/Resources/config/routing/chat.yml"
+    prefix:   /chat
+
+wa_back_brand:
+    resource: "@WaBackBundle/Resources/config/routing/brand.yml"
+    prefix:   /brand
 
 wa_back_categorie:
-    resource: "@WaBackBundle/Resources/config/routing/categorie.yml"
-    prefix:   /categorie
+    resource: "@WaBackBundle/Resources/config/routing/category.yml"
+    prefix:   /category
 
 wa_back_produit:
-    resource: "@WaBackBundle/Resources/config/routing/produit.yml"
-    prefix:   /produit
+    resource: "@WaBackBundle/Resources/config/routing/product.yml"
+    prefix:   /product
 
 wa_back:
     resource: "@WaBackBundle/Resources/config/routing/main.yml"

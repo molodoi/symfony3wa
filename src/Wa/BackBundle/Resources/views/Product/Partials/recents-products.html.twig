@@ -1,0 +1,30 @@
+<!-- PRODUCT LIST -->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Produits Récents</h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <ul class="products-list product-list-in-box">
+            {% for product in products %}
+            <li class="item">
+                <div class="product-img">
+                    <img src="http://placehold.it/50x50" alt="Product Image">
+                </div>
+                <div class="product-info">
+                    <a href="{{ path('wa_back_product_show', {'id': product.id}) }}" class="product-title">{{ product.title }}<span class="label label-warning pull-right">{{ product.price }} €</span></a>
+                    <span class="product-description">
+                        {{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}
+                    </span>
+                </div>
+            </li><!-- /.item -->
+            {% endfor %}
+        </ul>
+    </div><!-- /.box-body -->
+    <div class="box-footer text-center">
+        <a href="{{ path('wa_back_product_list') }}" class="uppercase">Voir tous les produits</a>
+    </div><!-- /.box-footer -->
+</div><!-- /.box -->

@@ -1,0 +1,99 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Créer un produit - Application{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <h1>Créer un Produit</h1>
+
+    {% if form_errors(formProduct) %}
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> Alerte!</h4>
+            Tous les champs de votre formulaire n'ont pas été validé.
+            {%- for error in errors -%}
+                <p class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ error.message }}</p>
+            {%- endfor -%}
+        </div>
+    {% endif %}
+
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Formulaire de Produit</h3>
+        </div><!-- /.box-header -->
+        {{ form_start(formProduct, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
+        <div class="box-body">
+
+            {{ form_label(formProduct.brand) }}
+            <div class="form-group {% if form_errors(formProduct.brand) %} has-error {% endif %}">
+                {{ form_errors(formProduct.brand) }}
+                {{ form_widget(formProduct.brand, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formProduct.category) }}
+            <div class="form-group {% if form_errors(formProduct.category) %} has-error {% endif %}">
+                {{ form_errors(formProduct.category) }}
+                {{ form_widget(formProduct.category, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formProduct.title) }}
+            <div class="form-group {% if form_errors(formProduct.title) %} has-error {% endif %}">
+                {{ form_errors(formProduct.title) }}
+                {{ form_widget(formProduct.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formProduct.title) }}
+            <div class="form-group {% if form_errors(formProduct.title) %} has-error {% endif %}">
+                {{ form_errors(formProduct.title) }}
+                {{ form_widget(formProduct.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formProduct.description) }}
+            <div class="form-group {% if form_errors(formProduct.description) %} has-error {% endif %}">
+                {{ form_errors(formProduct.description) }}
+                {{ form_widget(formProduct.description, { 'attr': {'class': 'form-control', 'placeholder': 'Decription'} }) }}
+            </div>
+
+            {{ form_label(formProduct.price, 'Prix') }}
+            <div class="form-group {% if form_errors(formProduct.price) %} has-error {% endif %}">
+                {{ form_errors(formProduct.price) }}
+                {{ form_widget(formProduct.price, { 'attr': {'class': 'form-control', 'placeholder': 'Prix'} }) }}
+            </div>
+
+            {{ form_label(formProduct.quantity, 'Quantité') }}
+            <div class="form-group {% if form_errors(formProduct.quantity) %} has-error {% endif %}">
+                {{ form_errors(formProduct.quantity) }}
+                {{ form_widget(formProduct.quantity, { 'attr': {'class': 'form-control', 'placeholder': 'Prix'} }) }}
+            </div>
+
+            {{ form_label(formProduct.dateCreated, 'Date') }}
+            <div class="form-group {% if form_errors(formProduct.dateCreated) %} has-error {% endif %}">
+                {{ form_errors(formProduct.dateCreated) }}
+                {{ form_widget(formProduct.dateCreated, { 'attr': {'class': 'datepicker'} }) }}
+            </div>
+
+            <div class="box-footer">
+                <button class="btn btn-sm btn-info btn-flat pull-left" type="submit">Envoyer</button>
+                <a href="{{ path('wa_back_produit_list') }}" class="btn btn-sm btn-info btn-flat pull-right">Revenir à la liste des produits</a>
+            </div>
+            {{ form_rest(formProduct) }}
+        </div>
+        {{ form_end(formProduct) }}
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="http://jqueryui.com/resources/demos/datepicker/datepicker-fr.js"></script>
+    <script>
+        $(function() {
+            $( ".datepicker" ).datepicker(
+                $.datepicker.regional["fr"]
+            );
+        });
+    </script>
+{% endblock %}

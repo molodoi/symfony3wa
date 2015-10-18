@@ -182,7 +182,7 @@ class ProductRepository extends EntityRepository
     //Afficher les produits qui n'ont pas de catégorie mais une marque
     public function findProductsDontCatButBrand(){
         $q = $this->createQueryBuilder('prod')
-            ->where('prod.category is null', 'prod.marque is not null')
+            ->where('prod.category is null', 'prod.brand is not null')
             ->getQuery();
 
         return $q->getResult();

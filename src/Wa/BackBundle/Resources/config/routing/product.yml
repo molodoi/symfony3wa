@@ -1,0 +1,23 @@
+wa_back_product_index:
+    path: /index
+    defaults: { _controller: WaBackBundle:Product:index }
+
+wa_back_product_list:
+    path: /list
+    defaults: { _controller: WaBackBundle:Product:list }
+
+wa_back_product_edit:
+    path: /edit/{id}
+    defaults: { _controller: WaBackBundle:Product:edit }
+
+wa_back_product_show:
+    path: /show/{id}
+    defaults: { _controller: WaBackBundle:Product:show }
+
+wa_back_product_create:
+    path: /create
+    defaults: { _controller: WaBackBundle:Product:create }
+
+wa_back_product_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:Product:delete }

@@ -1,0 +1,230 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Produit  Admin - Application{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Carousel</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="http://placehold.it/900x500/39CCCC/ffffff&amp;text=I+Love+Bootstrap" alt="First slide">
+                            <div class="carousel-caption">
+                                First Slide
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap" alt="Second slide">
+                            <div class="carousel-caption">
+                                Second Slide
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap" alt="Third slide">
+                            <div class="carousel-caption">
+                                Third Slide
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="fa fa-angle-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="fa fa-angle-right"></span>
+                    </a>
+                </div>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ produit.title }} </h3>
+                <span class=" pull-right"><strong></strong><i class="fa fa-star"></i></span>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>Description</dt>
+                    <dd>{{ produit.description|striptags|nl2br }}</dd>
+                    <dt>Prix du produit</dt>
+                    <dd>{{ produit.price }} €</dd>
+                    <dt>Reference produit</dt>
+                    <dd>{{ produit.id }}</dd>
+                    <dt>Categorie</dt>
+                        {% if produit.category is not null %}
+                    <dd>{{ produit.category.title }}</dd>
+                        {% endif %}
+                    <dt>Date création produit</dt>
+                    <dd>{{ produit.dateCreated|date("d/m/Y") }}</dd>
+                </dl>
+            </div><!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <a href="{{ path('wa_back_product_list') }}" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa-mail-reply"></i> Revenir à la liste des produits</a>
+                &nbsp;
+                &nbsp;
+                <a href="{{ path('wa_back_product_edit', {'id': produit.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ produit.title }}</a>
+                <a href="{{ path('wa_back_product_delete', {'id': produit.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ produit.title }}</a>
+                &nbsp;
+                    {# form_start(delete_form) #}
+                <!-- button class="btn btn-danger pull-right">Danger</button -->
+                    {# form_end(delete_form) #}
+            </div>
+        </div><!-- /.box -->  
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">        
+
+    </div>
+    <div class="col-md-6">
+        <!-- DIRECT CHAT -->
+        <div class="box box-warning direct-chat direct-chat-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Message</h3>
+                <div class="box-tools pull-right">
+                    <span data-toggle="tooltip" title="3 New Messages" class="badge bg-yellow">3</span>
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <!-- Conversations are loaded here -->
+                <div class="direct-chat-messages">                    
+                    {% for comment in comments %}
+                        <!-- Message. Default to the left -->
+                            {% if loop.index is divisibleby(2) %}
+                                <div class="direct-chat-msg">
+                                    <div class="direct-chat-info clearfix">
+                                            <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                                            <span class="direct-chat-timestamp pull-right">{{ comment.dateCreated|date }}</span>
+                                        </div><!-- /.direct-chat-info -->
+                                            <img class="direct-chat-img" src="http://placehold.it/40x40" alt="message user image"><!-- /.direct-chat-img -->
+                                        <div class="direct-chat-text">
+                                            {{ comment.content }}
+                                        </div><!-- /.direct-chat-text -->
+                                        
+                                </div>                                
+                            {% else %}
+                                <div class="direct-chat-msg right">
+                                    <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name pull-right">Alexander Pierce</span>
+                                    <span class="direct-chat-timestamp pull-left">{{ comment.dateCreated|date }}</span>
+                                    </div><!-- /.direct-chat-info -->
+
+                                    <img class="direct-chat-img" src="http://placehold.it/40x40" alt="message user image"><!-- /.direct-chat-img -->
+                                    <div class="direct-chat-text">
+                                        {{ comment.content }}
+                                    </div><!-- /.direct-chat-text -->
+                                </div> 
+                            {% endif %} 
+                    {% endfor %}
+                    </div><!-- /.direct-chat-msg -->
+                </div><!--/.direct-chat-messages-->
+
+                <!-- Contacts are loaded here -->
+                <div class="direct-chat-contacts">
+                    <ul class="contacts-list">
+                        <li>
+                            <a href="#">
+                                <img class="contacts-list-img" src="http://placehold.it/128x128">
+                                <div class="contacts-list-info">
+                                    <span class="contacts-list-name">
+                                        Count Dracula
+                                        <small class="contacts-list-date pull-right">2/28/2015</small>
+                                    </span>
+                                    <span class="contacts-list-msg">How have you been? I was...</span>
+                                </div><!-- /.contacts-list-info -->
+                            </a>
+                        </li><!-- End Contact Item -->
+                        <li>
+                            <a href="#">
+                                <img class="contacts-list-img" src="http://placehold.it/128x128">
+                                <div class="contacts-list-info">
+                                    <span class="contacts-list-name">
+                                        Sarah Doe
+                                        <small class="contacts-list-date pull-right">2/23/2015</small>
+                                    </span>
+                                    <span class="contacts-list-msg">I will be waiting for...</span>
+                                </div><!-- /.contacts-list-info -->
+                            </a>
+                        </li><!-- End Contact Item -->
+                        <li>
+                            <a href="#">
+                                <img class="contacts-list-img" src="http://placehold.it/128x128">
+                                <div class="contacts-list-info">
+                                    <span class="contacts-list-name">
+                                        Nadia Jolie
+                                        <small class="contacts-list-date pull-right">2/20/2015</small>
+                                    </span>
+                                    <span class="contacts-list-msg">I'll call you back at...</span>
+                                </div><!-- /.contacts-list-info -->
+                            </a>
+                        </li><!-- End Contact Item -->
+                        <li>
+                            <a href="#">
+                                <img class="contacts-list-img" src="http://placehold.it/128x128">
+                                <div class="contacts-list-info">
+                                    <span class="contacts-list-name">
+                                        Nora S. Vans
+                                        <small class="contacts-list-date pull-right">2/10/2015</small>
+                                    </span>
+                                    <span class="contacts-list-msg">Where is your new...</span>
+                                </div><!-- /.contacts-list-info -->
+                            </a>
+                        </li><!-- End Contact Item -->
+                        <li>
+                            <a href="#">
+                                <img class="contacts-list-img" src="http://placehold.it/128x128">
+                                <div class="contacts-list-info">
+                                    <span class="contacts-list-name">
+                                        John K.
+                                        <small class="contacts-list-date pull-right">1/27/2015</small>
+                                    </span>
+                                    <span class="contacts-list-msg">Can I take a look at...</span>
+                                </div><!-- /.contacts-list-info -->
+                            </a>
+                        </li><!-- End Contact Item -->
+                        <li>
+                            <a href="#">
+                                <img class="contacts-list-img" src="http://placehold.it/128x128">
+                                <div class="contacts-list-info">
+                                    <span class="contacts-list-name">
+                                        Kenneth M.
+                                        <small class="contacts-list-date pull-right">1/4/2015</small>
+                                    </span>
+                                    <span class="contacts-list-msg">Never mind I found...</span>
+                                </div><!-- /.contacts-list-info -->
+                            </a>
+                        </li><!-- End Contact Item -->
+                    </ul><!-- /.contatcts-list -->
+                </div><!-- /.direct-chat-pane -->
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                {{ form_start(formComment, {'attr': { novalidate: 'novalidate'}}) }}
+                    <div class="input-group">
+                        {{ form_errors(formComment.content) }}
+                        {{ form_widget(formComment.content, { 'attr': {'class': 'form-control', 'placeholder': 'Votre message'} }) }}
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-warning btn-flat">Envoyer</button>
+                            </span>
+                        </div>
+                    {{ form_rest(formComment) }}                
+                {{ form_end(formComment) }}
+                    </div><!-- /.box-footer-->
+                </div><!--/.direct-chat -->
+            </div>
+
+{% endblock %}

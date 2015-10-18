@@ -10,7 +10,6 @@
 /vendor/
 /bin/
 /composer.phar
-<<<<<<< HEAD
 !.gitignore
 /nbproject/
 /web/uploads/*

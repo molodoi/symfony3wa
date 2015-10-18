@@ -1,0 +1,77 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}List des produits Admin - Application{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Produit</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-header">
+                <h3 class="box-title">Produit Table</h3>
+                <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                        <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="product-detail" class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Intitulé</th>
+                                <th>Description</th>
+                                <th>Catégorie</th>
+                                <th>Prix</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td><a href="{{ path('wa_back_product_show', {'id': product.id}) }}">{{ product.title }}</a></td>
+                                    <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
+                                    <td>
+                                        {% if product.category is not null %}
+                                            {{ product.category.title }}
+                                        {% endif %}
+                                    </td>
+                                    <td><strong>{{ product.price }} €</strong></td>
+                                    <td>{{ product.dateCreated|date("d/m/Y") }}</td>
+                                    <td>
+                                        <span class="pull-right btn-group actions">
+                                            <a href="{{ path('wa_back_product_show', {'id': product.id}) }}" class="btn btn-success btn-sm" id="show_{{ product.id }}"><i class="fa fa-eye"></i> Voir</a>
+                                            <a href="{{ path('wa_back_product_edit', {'id': product.id}) }}" class="btn btn-info btn-sm" id="edit_{{ product.id }}"><i class="fa fa-edit"></i> Editer</a>
+                                            <a href="{{ path('wa_back_product_delete', {'id': product.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ product.id }}"><i class="fa fa-remove"></i> Supprimer</a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a href="{{ path('wa_back_product_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer un produit</a>
+                </div><!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/produit.js') }}"></script>
+{% endblock %}

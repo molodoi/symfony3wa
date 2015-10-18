@@ -5,7 +5,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Wa\BackBundle\Entity\Image;
 
 class LoadImageData extends AbstractFixture implements OrderedFixtureInterface

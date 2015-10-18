@@ -1,0 +1,30 @@
+<!-- PRODUCT LIST -->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Messages Récents</h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <ul class="messages-list message-list-in-box">
+            {% for message in messages %}
+            <li class="item">
+                <div class="message-img">
+                    <img src="http://placehold.it/50x50" alt="Message Image">
+                </div>
+                <div class="message-info">
+                    <a href="{{ path('wa_back_message_show', {'id': message.id}) }}" class="message-title">{{ message.title }}<span class="label label-warning pull-right">{{ message.price }} €</span></a>
+                    <span class="message-description">
+                        {{ message.description|striptags|nl2br }} {{ message.dateCreated|date }}
+                    </span>
+                </div>
+            </li><!-- /.item -->
+            {% endfor %}
+        </ul>
+    </div><!-- /.box-body -->
+    <div class="box-footer text-center">
+        <a href="{{ path('wa_back_message_list') }}" class="uppercase">Voir tous les messages</a>
+    </div><!-- /.box-footer -->
+</div><!-- /.box -->

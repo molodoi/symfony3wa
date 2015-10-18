@@ -1,0 +1,27 @@
+wa_back_category_index:
+    path: /index
+    defaults: { _controller: WaBackBundle:Category:index }
+
+wa_back_category_list:
+    path: /list
+    defaults: { _controller: WaBackBundle:Category:list }
+
+wa_back_category_edit:
+    path: /edit/{id}
+    defaults: { _controller: WaBackBundle:Category:edit }
+    requirements:
+        id: \d+
+
+wa_back_category_show:
+    path: /show/{id}
+    defaults: { _controller: WaBackBundle:Category:show }
+    requirements:
+        id: \d+
+
+wa_back_category_create:
+    path: /create
+    defaults: { _controller: WaBackBundle:Category:create }
+
+wa_back_category_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:Category:delete }

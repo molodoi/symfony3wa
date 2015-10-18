@@ -1,0 +1,23 @@
+wa_back_product_index:
+    path: /index
+    defaults: { _controller: WaBackBundle:Chat:index }
+
+wa_back_product_list:
+    path: /list
+    defaults: { _controller: WaBackBundle:Chat:list }
+
+wa_back_product_edit:
+    path: /edit/{id}
+    defaults: { _controller: WaBackBundle:Chat:edit }
+
+wa_back_product_show:
+    path: /show/{id}
+    defaults: { _controller: WaBackBundle:Chat:show }
+
+wa_back_product_create:
+    path: /create
+    defaults: { _controller: WaBackBundle:Chat:create }
+
+wa_back_product_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:Chat:delete }

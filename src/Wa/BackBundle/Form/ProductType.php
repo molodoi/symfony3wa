@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wa\BackBundle\Repository\CategoryRepository;
-use Wa\BackBundle\Repository\MarqueRepository;
+use Wa\BackBundle\Repository\BrandRepository;
 
 
 class ProductType extends AbstractType
@@ -40,13 +40,13 @@ class ProductType extends AbstractType
                     'read_only' => true
                 )
             )
-            ->add('marque'
+            ->add('brand'
                 , 'entity',
                 array(
-                    'class' => 'Wa\BackBundle\Entity\Marque',
+                    'class' => 'Wa\BackBundle\Entity\Brand',
                     'choice_label' => 'title',
-                    'query_builder' => function (MarqueRepository $mr){
-                        return $mr->getMarqueOrderByTitleAsc();
+                    'query_builder' => function (BrandRepository $mr){
+                        return $mr->getBrandOrderByTitleAsc();
                     },
                     'read_only' => true
                 )
