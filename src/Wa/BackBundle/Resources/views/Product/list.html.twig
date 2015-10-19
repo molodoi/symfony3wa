@@ -41,7 +41,7 @@
                             {% for product in products %}
                                 <tr>
                                     <td>{{ product.id }}</td>
-                                    <td><a href="{{ path('wa_back_product_show', {'id': product.id}) }}">{{ product.title }}</a></td>
+                                    <td><a href="{{ path('wa_back_product_edit', {'id': product.id}) }}">{{ product.title }}</a></td>
                                     <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
                                     <td>
                                         {% if product.category is not null %}

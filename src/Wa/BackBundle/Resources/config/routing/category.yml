@@ -1,3 +1,10 @@
+wa_back_category_active:
+    path: /reactive/{id}
+    defaults: { _controller: WaBackBundle:Category:active }
+    requirements:
+        id: \d+
+        active: \d+
+
 wa_back_category_index:
     path: /index
     defaults: { _controller: WaBackBundle:Category:index }

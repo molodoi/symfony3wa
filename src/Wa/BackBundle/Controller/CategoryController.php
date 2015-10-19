@@ -178,5 +178,31 @@ class CategoryController extends Controller
             'categories' => $categories
         ));
     }
+    
+    public function activeAction(Category $category, Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+
+        if (!$category) {
+            throw new NotFoundHttpException("La catégorie id n'existe pas.");
+        }
+
+        if($category->getActive() == 1){
+            $category->setActive(0);
+        }else{
+            $category->setActive(1);
+        }
+
+        $em->persist($category);
+
+        $em->flush();
+
+        if($request->isXmlHttpRequest()){
+            return new JsonResponse(array('success' => true));
+        }
+
+
+        return $this->redirectToRoute('wa_back_category_list');
+    }
 
 }

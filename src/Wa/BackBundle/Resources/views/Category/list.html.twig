@@ -35,7 +35,7 @@
                                 <th>Date</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="isActive">
 
                             {% for categorie in categories %}
                                 <tr>
@@ -44,9 +44,13 @@
                                     <td>{{ categorie.description|striptags|nl2br }}</td>
                                     <td>
                                         {% if categorie.active %}
-                                            <span class="label label-success">
-                                            Active
-                                        </span>
+                                                <a href="{{  path('wa_back_category_active', {'id': categorie.id })  }}" class="my-active">
+                                                    <span class="label label-success">Activer</span>
+                                                </a>
+                                        {% else %}
+                                                <a href="{{  path('wa_back_category_active', {'id': categorie.id })  }}" class="my-active">
+                                                    <span class="label label-warning">Désactiver</span>
+                                                </a>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -87,4 +91,9 @@
     {% for categorie in categories %}
         <li><a href="{{ path('wa_back_category_show', {'id': categorie.id}) }}">{{ categorie.title }}</a>
     {% endfor %}
+{% endblock %}
+                
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/produit.js') }}"></script>
 {% endblock %}
