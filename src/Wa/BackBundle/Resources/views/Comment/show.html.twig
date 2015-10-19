@@ -1,0 +1,41 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Comment  Admin - Application{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+<div class="row">
+
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ comment.id }} </h3>
+                <span class=" pull-right"><strong></strong><i class="fa fa-star"></i></span>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <dl class="dl-horizontal">
+                    <dt>Description</dt>
+                    <dd>{{ comment.content|striptags|nl2br }}</dd>
+                    <dd>{{ comment.dateCreated|date("d/m/Y") }}</dd>
+                </dl>
+            </div><!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <a href="{{ path('wa_back_comment_list') }}" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa-mail-reply"></i> Revenir à la liste des produits</a>
+                &nbsp;
+                &nbsp;
+                <a href="{{ path('wa_back_comment_edit', {'id': comment.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ comment.title }}</a>
+                <a href="{{ path('comment_delete', {'id': comment.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ comment.title }}</a>
+                &nbsp;
+                    {# form_start(delete_form) #}
+                <!-- button class="btn btn-danger pull-right">Danger</button -->
+                    {# form_end(delete_form) #}
+            </div>
+        </div><!-- /.box -->  
+    </div>
+</div>
+<div class="row">
+
+</div>
+
+{% endblock %}

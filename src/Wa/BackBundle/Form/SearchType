@@ -2,13 +2,11 @@
 
 namespace Wa\BackBundle\Form;
 
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-class CommentType extends AbstractType
+class SearchType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,26 +15,17 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author', 'text')
-            ->add('content', 'text')
-            ->add('note', 'integer')
-            ->add('active', 'checkbox',
-                array(
-                    'label'    => 'Activer la commentaire',
-                    'required' => true,
-                )
-            )
+            ->add('search', 'text')
         ;
-            //Le bouton submit est à ajouter de préférence en static dans les vues
     }
 
     /**
-     * @param OptionsResolver $resolver
+     * @param OptionsResolverInterface $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Wa\BackBundle\Entity\Comment'
+            'data_class' => 'Wa\BackBundle\Entity\Chat'
         ));
     }
 
@@ -45,6 +34,6 @@ class CommentType extends AbstractType
      */
     public function getName()
     {
-        return 'wa_backbundle_comment';
+        return 'wa_backbundle_chat';
     }
 }

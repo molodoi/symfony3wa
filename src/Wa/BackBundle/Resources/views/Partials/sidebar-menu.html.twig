@@ -10,6 +10,10 @@
             <li {% if app.request.attributes.get('_route') == 'wa_back_product_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_product_create') }}">Créer un Produit</a>
             </li>
+
+            <li {% if app.request.attributes.get('_route') == 'wa_back_comment_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_comment_list') }}">Tous les commentaires</a>
+            </li>
         </ul>
     </li>
     

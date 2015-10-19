@@ -1,3 +1,7 @@
+wa_back_comment:
+    resource: "@WaBackBundle/Resources/config/routing/comment.yml"
+    prefix:   /comment
+
 wa_back_chat:
     resource: "@WaBackBundle/Resources/config/routing/chat.yml"
     prefix:   /chat

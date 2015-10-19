@@ -3,8 +3,8 @@ wa_back_product_index:
     defaults: { _controller: WaBackBundle:Product:index }
 
 wa_back_product_list:
-    path: /list
-    defaults: { _controller: WaBackBundle:Product:list }
+    path: /list/{page}
+    defaults: { _controller: WaBackBundle:Product:list, page: 1 }
 
 wa_back_product_edit:
     path: /edit/{id}

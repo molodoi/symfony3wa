@@ -29,41 +29,44 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Intitulé</th>
-                                <th>Description</th>
-                                <th>Catégorie</th>
-                                <th>Prix</th>
-                                <th>Date</th>
-                                <th>Actions</th>
+                                <th>Auteur</th>
+                                <th>Contenu</th>
+                                <th>Note</th>
+                                <th>Active</th>
+                                <th>Date Création</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for product in products %}
+                            {% for comment in comments %}
                                 <tr>
-                                    <td>{{ product.id }}</td>
-                                    <td><a href="{{ path('wa_back_product_show', {'id': product.id}) }}">{{ product.title }}</a></td>
-                                    <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
+                                    <td><a href="{{ path('wa_back_comment_show', {'id': comment.id}) }}">{{ comment.id }}</a></td>
+                                    <td>{{ comment.author }}</td>
+                                    <td>{{ comment.content }}</td>
+                                    <td><strong>{{ comment.note }}</strong></td>
                                     <td>
-                                        {% if product.category is not null %}
-                                            {{ product.category.title }}
+                                        {% if comment.active %}
+                                            <span class="label label-success">
+
+                                                <a href="{{  path('wa_back_comment_active', {'id': comment.id, 'active': comment.active })  }}" class="active">Active</a>
+                                            </span>
+                                        {% else %}
+                                            <span class="label label-warning">
+                                                <a href="{{  path('wa_back_comment_active', {'id': comment.id, 'active': comment.active })  }}" class="active">Désactiver</a>
+                                            </span>
                                         {% endif %}
                                     </td>
-                                    <td><strong>{{ product.price }} €</strong></td>
-                                    <td>{{ product.dateCreated|date("d/m/Y") }}</td>
+                                    <td>{{ comment.dateCreated|date("d/m/Y") }}</td>
                                     <td>
                                         <span class="pull-right btn-group actions">
-                                            <a href="{{ path('wa_back_product_show', {'id': product.id}) }}" class="btn btn-success btn-sm" id="show_{{ product.id }}"><i class="fa fa-eye"></i> Voir</a>
-                                            <a href="{{ path('wa_back_product_edit', {'id': product.id}) }}" class="btn btn-info btn-sm" id="edit_{{ product.id }}"><i class="fa fa-edit"></i> Editer</a>
-                                            <a href="{{ path('wa_back_product_delete', {'id': product.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ product.id }}"><i class="fa fa-remove"></i> Supprimer</a>
+                                            <a href="{{ path('wa_back_comment_show', {'id': comment.id}) }}" class="btn btn-success btn-sm" id="show_{{ comment.id }}"><i class="fa fa-eye"></i> Voir</a>
+                                            <a href="{{ path('wa_back_comment_edit', {'id': comment.id}) }}" class="btn btn-info btn-sm" id="edit_{{ comment.id }}"><i class="fa fa-edit"></i> Editer</a>
+                                            <a href="{{ path('wa_back_comment_delete', {'id': comment.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ comment.id }}"><i class="fa fa-remove"></i> Supprimer</a>
                                         </span>
                                     </td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
-                        <div class="navigation">
-                            {{ knp_pagination_render(products) }}
-                        </div>
                     </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">

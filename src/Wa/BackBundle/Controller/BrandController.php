@@ -19,11 +19,26 @@ class BrandController extends Controller
      * Lists all Brand entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request, $page)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('WaBackBundle:Brand')->findAll();
+        $allEntities = $em->getRepository('WaBackBundle:Brand')->findAll();
+
+        if (null === $allEntities) {
+            throw new NotFoundHttpException("Aucuns marques.");
+        }
+
+        if(empty($page)){
+            $page = $request->query->getInt('page', 1);
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $entities = $paginator->paginate(
+            $allEntities,
+            $page,
+            5
+        );
 
         return $this->render('WaBackBundle:Brand:index.html.twig', array(
             'entities' => $entities,

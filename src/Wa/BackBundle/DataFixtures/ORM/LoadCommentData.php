@@ -31,6 +31,9 @@ class LoadCommentData extends AbstractFixture implements OrderedFixtureInterface
             $comment = new Comment();
             $comment->setContent($faker->text(120) . ' ' . $i);
             $comment->setProduct($product);
+            $comment->setAuthor($faker->firstName($gender = null|'male'|'female'));
+            $comment->setNote($faker->numberBetween(0,5));
+            $comment->setActive($faker->numberBetween(0,1));
             $comment->setDateCreated(new \DateTime('NOW'));
             $manager->persist($comment);
         }

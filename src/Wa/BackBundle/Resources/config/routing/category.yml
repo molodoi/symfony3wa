@@ -3,8 +3,8 @@ wa_back_category_index:
     defaults: { _controller: WaBackBundle:Category:index }
 
 wa_back_category_list:
-    path: /list
-    defaults: { _controller: WaBackBundle:Category:list }
+    path: /list/{page}
+    defaults: { _controller: WaBackBundle:Category:list, page: 1 }
 
 wa_back_category_edit:
     path: /edit/{id}

@@ -91,17 +91,28 @@ class ProductController extends Controller
     }
     
 
-    public function listAction(){
+    public function listAction(Request $request, $page){
         $repository = $this->getDoctrine()
             ->getManager()
             ->getRepository('WaBackBundle:Product');
 
         //$products = $repository->findAll();
-        $products = $repository->findAllProductsWithCategories();
+        $allProductsWithCategories = $repository->findAllProductsWithCategories();
 
-        if (null === $products) {
+        if (null === $allProductsWithCategories) {
             throw new NotFoundHttpException("Aucuns produits.");
         }
+
+        if(empty($page)){
+            $page = $request->query->getInt('page', 1);
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $products = $paginator->paginate(
+            $allProductsWithCategories,
+            $page,
+            5
+        );
 
         return $this->render('WaBackBundle:Product:list.html.twig', array('products' => $products));
     }
@@ -123,8 +134,13 @@ class ProductController extends Controller
                         5,   // Limite                               
                         0
                     );
-        
-        $formComment = $form = $this->createForm(new \Wa\BackBundle\Form\CommentType());
+
+        $commentaire = new Comment();
+        $commentaire->setProduct($product);
+        $formComment = $form = $this->createForm(new \Wa\BackBundle\Form\CommentType(), $commentaire)
+                                                ->remove('author')
+                                                ->remove('active')
+                                                ->remove('note');
         
         $formComment->handleRequest($request);
 

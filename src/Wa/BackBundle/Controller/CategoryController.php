@@ -89,18 +89,28 @@ class CategoryController extends Controller
 
     }
 
-    public function listAction()
+    public function listAction(Request $request, $page)
     {
         $repository = $this->getDoctrine()
             ->getManager()
             ->getRepository('WaBackBundle:Category');
 
-        $categories = $repository->findAll();
+        $allCategories = $repository->findAll();
 
-        if (null === $categories) {
+        if (null === $allCategories) {
             throw new NotFoundHttpException("Aucuns categories.");
         }
 
+        if(empty($page)){
+            $page = $request->query->getInt('page', 1);
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $categories = $paginator->paginate(
+            $allCategories,
+            $page,
+            5
+        );
 
         return $this->render('WaBackBundle:Category:list.html.twig', array('categories' => $categories));
 

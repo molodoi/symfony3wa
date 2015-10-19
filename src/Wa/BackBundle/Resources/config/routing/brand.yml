@@ -1,6 +1,6 @@
 wa_back_brand:
-    path:     /
-    defaults: { _controller: "WaBackBundle:Brand:index" }
+    path:     /list/{page}
+    defaults: { _controller: "WaBackBundle:Brand:index", page: 1 }
 
 wa_back_brand_show:
     path:     /{id}/show
