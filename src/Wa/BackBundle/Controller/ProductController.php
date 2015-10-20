@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Wa\BackBundle\Entity\Product;
 use Wa\BackBundle\Entity\Comment;
 use Wa\BackBundle\Form\ProductType;
@@ -116,27 +117,18 @@ class ProductController extends Controller
 
         return $this->render('WaBackBundle:Product:list.html.twig', array('products' => $products));
     }
-    
 
-    public function showAction(Product $product, Request $request){
-        //$em = $this->getDoctrine()->getManager();
+    /**
+     * @ParamConverter("product", class="WaBackBundle:Product", options={"repository_method" = "findProductsWithComments"})
+     */
+    public function showAction(Request $request,  Product $product){
 
-        //$product = $em->getRepository('WaBackBundle:Product')->find($id); 
-
-        if (!$product) {
-            throw $this->createNotFoundException('Unable to find Product entity.');
-        }
-        
-        $repository = $this->getDoctrine()->getManager()->getRepository('WaBackBundle:Comment');
-        $comments = $repository->findBy(
-                        array('product' => $product),       // Critere
-                        array('dateCreated' => 'DESC'),   // Tri
-                        5,   // Limite                               
-                        0
-                    );
+        $em = $this->getDoctrine()->getManager();
 
         $commentaire = new Comment();
-        $commentaire->setProduct($product);
+        $product2 = new Product();
+        $commentaire->setProduct($product2);
+
         $formComment = $form = $this->createForm(new \Wa\BackBundle\Form\CommentType(), $commentaire)
                                                 ->remove('author')
                                                 ->remove('active')
@@ -145,7 +137,6 @@ class ProductController extends Controller
         $formComment->handleRequest($request);
 
         if($formComment->isValid() && $request->isMethod('POST')){
-            //$em = $this->get("doctrine");
             $em = $this->getDoctrine()->getManager();
             
             $mycomment = $formComment->getData();
@@ -170,11 +161,8 @@ class ProductController extends Controller
 
         }
 
-        //$deleteForm = $this->createDeleteForm($id);
-
         return $this->render('WaBackBundle:Product:show.html.twig', array(
             'produit' => $product,
-            'comments' => $comments,
             'formComment' => $formComment->createView()
         ));
     }
@@ -207,7 +195,7 @@ class ProductController extends Controller
 
     public function indexAction(){
         $em = $this->getDoctrine()->getManager();
-        $products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
+        //$products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
         //$products = $em->getRepository('WaBackBundle:Product')->getProductsWhereCategorieIsAccueil();
         //$products = $em->getRepository('WaBackBundle:Product')->getProductsDontHaveCategorie();
         //$products = $em->getRepository('WaBackBundle:Product')->getProductsDontCatButBrand();
@@ -216,6 +204,7 @@ class ProductController extends Controller
         //$catges = $em->getRepository('WaBackBundle:Category')->getCategoriesWithoutImage();
         //$products = $em->getRepository('WaBackBundle:Category')->getImageCaptionWherePositionIsMax();
         //$products = $em->getRepository('WaBackBundle:Category')->getCategorieWhereMaxlenghtCaption();
+
 
 
 

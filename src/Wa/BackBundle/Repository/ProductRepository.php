@@ -137,6 +137,19 @@ class ProductRepository extends EntityRepository
 
     }
 
+    public function findProductsWithComments($id){
+        $q = $this->createQueryBuilder('p')
+            ->select('p, c')
+            ->join('p.comments', 'c')
+            ->where('p.id = :id')
+            ->setParameter('id', $id)
+            ->orderBy('p.dateCreated', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery();
+        //die(dump($q->getResult()));
+        return $q->getSingleResult();
+    }
+
     public function findAllProductsWithCategories(){
 
         /*

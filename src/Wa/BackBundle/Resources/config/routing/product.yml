@@ -13,6 +13,8 @@ wa_back_product_edit:
 wa_back_product_show:
     path: /show/{id}
     defaults: { _controller: WaBackBundle:Product:show }
+    requirements:
+        id: \d+
 
 wa_back_product_create:
     path: /create

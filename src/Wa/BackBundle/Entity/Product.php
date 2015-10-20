@@ -84,7 +84,7 @@ class Product
     
 
     /**
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="product", cascade={"remove"})
      **/
     private $comments;
   

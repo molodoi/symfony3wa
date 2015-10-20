@@ -51,6 +51,7 @@
     <div class="col-md-6">
         <div class="box box-solid">
             <div class="box-header with-border">
+
                 <h3 class="box-title">{{ produit.title }} </h3>
                 <span class=" pull-right"><strong></strong><i class="fa fa-star"></i></span>
             </div><!-- /.box-header -->
@@ -68,6 +69,8 @@
                         {% endif %}
                     <dt>Date création produit</dt>
                     <dd>{{ produit.dateCreated|date("d/m/Y") }}</dd>
+
+
                 </dl>
             </div><!-- /.box-body -->
             <div class="box-footer clearfix">
@@ -103,7 +106,7 @@
             <div class="box-body">
                 <!-- Conversations are loaded here -->
                 <div class="direct-chat-messages">                    
-                    {% for comment in comments %}
+                    {% for comment in produit.comments %}
                         <!-- Message. Default to the left -->
                             {% if loop.index is divisibleby(2) %}
                                 <div class="direct-chat-msg">

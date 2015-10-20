@@ -238,18 +238,7 @@ class Comment
      */
     public function isValid(ExecutionContextInterface $context)
     {
-        $forbiddenWords = array(
-            'abruti',
-            'abrutis',
-            'andouille',
-            'avorton',
-            'bellicole',
-            'débile',
-            'enculer',
-            'gros mots',
-            'gros mot',
-            'zzzz'
-        );
+        $forbiddenWords = array('zzzz');
 
         // On vérifie que le contenu ne contient pas l'un des mots
         if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getContent())) {

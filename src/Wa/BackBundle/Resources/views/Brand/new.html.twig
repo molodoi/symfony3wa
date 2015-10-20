@@ -1,27 +1,27 @@
 {% extends 'WaBackBundle::layout.html.twig' %}
 
 {% block content %}
-<h1>Créer une Marque</h1>
+    <h1>Créer une Marque</h1>
 
-<div class="box box-primary">
-    <div class="box-header with-border">
-        <h3 class="box-title">Formulaire de Marque</h3>
-    </div><!-- /.box-header -->
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Formulaire de Marque</h3>
+        </div><!-- /.box-header -->
         {{ form_start(form, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
-            <div class="box-body">
-                {{ form_label(form.title, 'Quantité') }}
-                <div class="form-group {% if form_errors(form.title) %} has-error {% endif %}">
-                    {{ form_errors(form.title) }}
-                    {{ form_widget(form.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
-                </div>
+        <div class="box-body">
+            {{ form_label(form.title, 'Quantité') }}
+            <div class="form-group {% if form_errors(form.title) %} has-error {% endif %}">
+                {{ form_errors(form.title) }}
+                {{ form_widget(form.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
             </div>
-            <div class="box-footer">
-                {{ form_widget(form.submit, { 'label': 'Envoyer', 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}
-                
-                <a href="{{ path('wa_back_brand') }}" class="btn btn-sm btn-info btn-flat pull-right">Revenir à la liste des marques</a>
-            </div>
-            
-            {{ form_rest(form) }}
-        {{ form_end(form) }}
         </div>
+        <div class="box-footer">
+            {{ form_widget(form.submit, { 'label': 'Envoyer', 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}
+
+            <a href="{{ path('wa_back_brand') }}" class="btn btn-sm btn-info btn-flat pull-right">Revenir à la liste des marques</a>
+        </div>
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

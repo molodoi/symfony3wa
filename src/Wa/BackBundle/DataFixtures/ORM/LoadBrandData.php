@@ -23,7 +23,7 @@ class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->flush();
 
-        $this->addReference('brand', $marque01 );
+        $this->addReference('brand', $marque01);
 
     }
 
