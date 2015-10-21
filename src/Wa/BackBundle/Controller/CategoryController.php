@@ -8,11 +8,16 @@ use Wa\BackBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wa\BackBundle\Controller\BaseController;
 use Wa\BackBundle\Form\CategoryType;
 
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
     public function createAction(Request $request){
+
+        $this->breadcrumbs(
+            array('Catégories' => $this->generateUrl("wa_back_category_create")), ''
+        );
 
         $category = new Category();
 
@@ -53,8 +58,12 @@ class CategoryController extends Controller
 
     public function editAction(Category $category, Request $request){
 
+        $this->breadcrumbs(
+            array('Catégories' => $this->generateUrl("wa_back_category_list")), ''
+        );
+
         if (!$category) {
-            throw new NotFoundHttpException("La catégorie id ".$id." n'existe pas.");
+            throw new NotFoundHttpException("La catégorie id n'existe pas.");
         }
 
         $formCategory = $this->createForm(new CategoryType(), $category);
@@ -91,6 +100,12 @@ class CategoryController extends Controller
 
     public function listAction(Request $request, $page)
     {
+        $this->breadcrumbs(
+            array('Catégories' => $this->generateUrl("wa_back_category_list")), ''
+        );
+
+
+
         $repository = $this->getDoctrine()
             ->getManager()
             ->getRepository('WaBackBundle:Category');
@@ -112,6 +127,8 @@ class CategoryController extends Controller
             5
         );
 
+
+
         return $this->render('WaBackBundle:Category:list.html.twig', array('categories' => $categories));
 
     }
@@ -129,6 +146,11 @@ class CategoryController extends Controller
 
         $category = $repository->find($id);
         */
+
+
+        $this->breadcrumbs(
+            array('Catégories' => $this->generateUrl("wa_back_category_list")), ''
+        );
 
         if (!$category) {
             throw $this->createNotFoundException('Unable to find Product entity.');

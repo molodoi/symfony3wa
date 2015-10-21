@@ -39,6 +39,19 @@ class Brand
     private $slug;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Wa\BackBundle\Entity\Tag")
+     * @ORM\JoinTable(name="brand_tag",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
+     *      },
+     *		inverseJoinColumns={
+     *          @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     *      }
+     *)
+     */
+    private $tags;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="updated_at", type="datetime")
@@ -134,5 +147,46 @@ class Brand
     public function getSlug()
     {
         return $this->slug;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \Wa\BackBundle\Entity\Tag $tag
+     *
+     * @return Brand
+     */
+    public function addTag(\Wa\BackBundle\Entity\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \Wa\BackBundle\Entity\Tag $tag
+     */
+    public function removeTag(\Wa\BackBundle\Entity\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

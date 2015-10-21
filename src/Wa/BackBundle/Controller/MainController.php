@@ -5,13 +5,49 @@ namespace Wa\BackBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
+use Wa\BackBundle\Controller\BaseController;
 //use Symfony\Component\HttpFoundation\Response;
 
-class MainController extends Controller
+class MainController extends BaseController
 {
 
     public function adminAction()
     {
+        /* Nom du fichier
+        $file = __DIR__."/../../../../app/cache/cache_instagram.txt";
+        $fs = new Filesystem();
+
+        $timeCache = time() + ( 1 * 60 )
+
+        // filemtime lit la date de dernière modification du fichier
+        if ($fs->exists($file) && ( filemtime($file) >  (time() - $timeCache )  )
+        {
+        // Récupération du contenu du fichier cacheinstagram
+        $mesImages = unserialize(file_get_contents($file));
+        dump(file_get_contents($file));
+        dump($mesImages);
+        die('Utilisation du cache');
+        }
+        else
+        {
+        $instagram = new Instagram(array(
+        'apiKey'      => $this->getParameter('client_id_instagram'),
+        'apiSecret'   => $this->getParameter('client_secret_instagram'),
+        'apiCallback' => $this->getParameter('callback_instagram')
+        ));
+
+        $instagram->setAccessToken($this->getParameter('token_instagram'));
+
+        $mesImages = $instagram->getUserMedia($this->getParameter('id_instagram'));
+
+        // Création du fichier et ajout des minutes du cache
+        $fs->touch($file, time() + $timeCache);
+        // insertion dans le
+        $fs->dumpFile($file, serialize($mesImages));
+        //die(dump($mesImages));
+        }
+        */
+
         $categories = [
             1 => [
                 "id" => 1,

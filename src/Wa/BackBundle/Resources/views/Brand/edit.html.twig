@@ -25,10 +25,16 @@
         {{ form_start(edit_form, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
         <div class="box-body">
 
-            {{ form_label(edit_form.title) }}
+            {{ form_label(edit_form.title, 'Titre') }}
             <div class="form-group {% if form_errors(edit_form.title) %} has-error {% endif %}">
                 {{ form_errors(edit_form.title) }}
                 {{ form_widget(edit_form.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(edit_form.title, 'Tags') }}
+            <div class="form-group {% if form_errors(edit_form.tags) %} has-error {% endif %}">
+                {{ form_errors(edit_form.tags) }}
+                {{ form_widget(edit_form.tags, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
             </div>
 
             <div class="box-footer">

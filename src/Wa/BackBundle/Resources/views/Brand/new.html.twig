@@ -9,11 +9,18 @@
         </div><!-- /.box-header -->
         {{ form_start(form, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
         <div class="box-body">
-            {{ form_label(form.title, 'Quantité') }}
+            {{ form_label(form.title, 'Titre') }}
             <div class="form-group {% if form_errors(form.title) %} has-error {% endif %}">
                 {{ form_errors(form.title) }}
                 {{ form_widget(form.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
             </div>
+
+            {{ form_label(form.title, 'Tags') }}
+            <div class="form-group {% if form_errors(form.tags) %} has-error {% endif %}">
+                {{ form_errors(form.tags) }}
+                {{ form_widget(form.tags, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
         </div>
         <div class="box-footer">
             {{ form_widget(form.submit, { 'label': 'Envoyer', 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}

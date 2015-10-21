@@ -301,10 +301,13 @@
                 Dashboard
                 <small>Version 2.0</small>
             </h1>
-            <ol class="breadcrumb">
+            <!--ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li class="active">Dashboard</li>
-            </ol>
+            </ol-->
+            {% if wo_render_breadcrumbs() %}
+                {{ wo_render_breadcrumbs() }}
+            {% endif %}
         </section>
 
         <!-- Main content -->

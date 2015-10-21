@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Wa\BackBundle\Entity\Brand;
+use Wa\BackBundle\Entity\Tag;
 use Wa\BackBundle\Form\BrandType;
 /**
  * Marque controller.
@@ -47,6 +48,7 @@ class BrandController extends Controller
     {
         $entity = new Brand();
         $form = $this->createCreateForm($entity);
+
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -202,4 +204,7 @@ class BrandController extends Controller
             ->getForm()
             ;
     }
+
+
+
 }

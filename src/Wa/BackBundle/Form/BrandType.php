@@ -2,9 +2,11 @@
 
 namespace Wa\BackBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Wa\BackBundle\Entity\Tag;
 
 class BrandType extends AbstractType
 {
@@ -14,8 +16,15 @@ class BrandType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $builder
             ->add('title', 'text')
+            ->add('tags', 'entity', array(
+                'multiple' => true,
+                'class' => 'WaBackBundle:Tag',
+                'choice_label' => 'title'
+            ))
         ;
     }
     

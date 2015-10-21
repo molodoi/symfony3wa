@@ -9,6 +9,12 @@
                 <div class="box-header with-border">
 
                     <h3 class="box-title">{{ entity.title }} </h3>
+
+                    <p>
+                        {% for tag in entity.tags %}
+                            {{ tag.title }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p>
                     <span class=" pull-right"><strong></strong><i class="fa fa-star"></i></span>
                 </div>
                 <div class="box-footer clearfix">
