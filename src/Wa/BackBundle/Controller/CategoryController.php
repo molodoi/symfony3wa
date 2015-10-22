@@ -21,7 +21,7 @@ class CategoryController extends BaseController
 
         $category = new Category();
 
-        $formCategory = $form = $this->createForm(new CategoryType(), $category);
+        $formCategory = $this->createForm(new CategoryType(), $category);
 
         $formCategory->handleRequest($request);
 

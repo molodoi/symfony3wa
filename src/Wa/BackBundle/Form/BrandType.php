@@ -6,10 +6,17 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Wa\BackBundle\Entity\Tag;
+use Wa\BackBundle\Form\DataTransformer\TagTransformer;
+use Wa\BackBundle\Form\TagWithoutMarqueType;
 
 class BrandType extends AbstractType
 {
+
+    private $em;
+
+    public function __construct($doctrine){
+        $this->em = $doctrine;
+    }
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,15 +24,20 @@ class BrandType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-
         $builder
-            ->add('title', 'text')
-            ->add('tags', 'entity', array(
+            ->add('title', 'text');
+            /*->add('tags', 'entity'
+                , array(
                 'multiple' => true,
                 'class' => 'WaBackBundle:Tag',
                 'choice_label' => 'title'
-            ))
-        ;
+            ))*/
+        $builder->add(
+            $builder->create('tags','collection',array(
+                'type' => new TagWithoutMarqueType(),
+                'allow_add' => true
+            ))->addModelTransformer(new TagTransformer($this->em))
+        );
     }
     
     /**

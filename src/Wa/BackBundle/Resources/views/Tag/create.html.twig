@@ -1,0 +1,47 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Créer un Tag - Application{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    {% include "WaBackBundle:Partials:notification-messages.html.twig" %}
+
+    <h1>Créer un Tag </h1>
+    {% if form_errors(formTag) %}
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> Alerte!</h4>
+            Tous les champs de votre formulaire n'ont pas été validé.
+        </div>
+    {% endif %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Formulaire de Tag</h3>
+        </div><!-- /.box-header -->
+        {{ form_start(formTag, {'attr': { novalidate: 'novalidate' ,'role': 'form'}}) }}
+        <div class="box-body">
+            {{ form_errors(formTag) }}
+            {{ form_label(formTag.title) }}
+            <div class="form-group {% if form_errors(formTag.title) %} has-error {% endif %}">
+                {{ form_errors(formTag.title) }}
+                {{ form_widget(formTag.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
+            </div>
+
+            {{ form_label(formTag.brands) }}
+            <div class="form-group {% if form_errors(formTag.brands) %} has-error {% endif %}">
+                {{ form_errors(formTag.brands) }}
+                {{ form_widget(formTag.brands, { 'attr': {'class': 'form-control', 'placeholder': 'Decription'} }) }}
+            </div>
+
+            <div class="box-footer">
+                <button>Envoyer</button>
+
+                <a href="{{ path('wa_back_tag_list') }}" class="btn btn-sm btn-default btn-flat"><i class="fa fa-mail-reply"></i> Revenir à la liste des tags</a>
+            </div>
+            {{ form_rest(formTag) }}
+        </div>
+        {{ form_end(formTag) }}
+    </div>
+{% endblock %}
+

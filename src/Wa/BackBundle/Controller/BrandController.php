@@ -10,7 +10,7 @@ use Wa\BackBundle\Form\BrandType;
  * Marque controller.
  *
  */
-class BrandController extends Controller
+class BrandController extends BaseController
 {
     /**
      * Lists all Brand entities.
@@ -20,7 +20,7 @@ class BrandController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $allEntities = $em->getRepository('WaBackBundle:Brand')->findAll();
+        $allEntities = $em->getRepository('WaBackBundle:Brand')->allBrandsTags();
 
         if (null === $allEntities) {
             throw new NotFoundHttpException("Aucuns marques.");
@@ -70,7 +70,7 @@ class BrandController extends Controller
      */
     private function createCreateForm(Brand $entity)
     {
-        $form = $this->createForm(new BrandType(), $entity, array(
+        $form = $this->createForm(new BrandType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('wa_back_brand_create'),
             'method' => 'POST',
         ));

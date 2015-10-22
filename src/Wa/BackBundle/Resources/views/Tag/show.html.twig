@@ -8,27 +8,24 @@
             <div class="box box-solid">
                 <div class="box-header with-border">
 
-                    <h3 class="box-title">{{ entity.title }} </h3>
+                    <h3 class="box-title">{{ tag.title }} </h3>
                     <p>
-                        {% for tag in entity.tags %}
-                            {{ tag.title }}{% if not loop.last %}, {% endif %}
+                        {% for brand in tag.brands %}
+                            {{ brand.title }}
                         {% endfor %}
                     </p>
                     <span class=" pull-right"><strong></strong><i class="fa fa-star"></i></span>
                 </div>
                 <div class="box-footer clearfix">
-                    <a href="{{ path('wa_back_brand') }}" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa-mail-reply"></i> Revenir à la liste des produits</a>
+                    <a href="{{ path('wa_back_tag_list') }}" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa-mail-reply"></i> Revenir à la liste des tags</a>
                     &nbsp;
                     &nbsp;
-                    <a href="{{ path('wa_back_brand_edit', {'id': entity.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ entity.title }}</a>
-                    <a href="{{ path('wa_back_brand_delete', {'id': entity.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ entity.title }}</a>
+                    <a href="{{ path('wa_back_tag_edit', {'id': tag.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ tag.title }}</a>
+                    <a href="{{ path('wa_back_tag_delete', {'id': tag.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ tag.title }}</a>
                     &nbsp;
                     {# form_start(delete_form) #}
                     <!-- button class="btn btn-danger pull-right">Danger</button -->
                     {# form_end(delete_form) #}
-
-
-
                 </div>
             </div><!-- /.box -->
         </div>

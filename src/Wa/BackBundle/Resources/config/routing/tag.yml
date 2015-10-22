@@ -1,0 +1,27 @@
+wa_back_tag_index:
+    path: /index
+    defaults: { _controller: WaBackBundle:Tag:index }
+
+wa_back_tag_list:
+    path: /list/{page}
+    defaults: { _controller: WaBackBundle:Tag:list, page: 1 }
+
+wa_back_tag_edit:
+    path: /edit/{id}
+    defaults: { _controller: WaBackBundle:Tag:edit }
+    requirements:
+        id: \d+
+
+wa_back_tag_show:
+    path: /show/{id}
+    defaults: { _controller: WaBackBundle:Tag:show }
+    requirements:
+        id: \d+
+
+wa_back_tag_create:
+    path: /create
+    defaults: { _controller: WaBackBundle:Tag:create }
+
+wa_back_tag_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:Tag:delete }

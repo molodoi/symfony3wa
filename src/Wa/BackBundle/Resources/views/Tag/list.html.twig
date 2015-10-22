@@ -1,0 +1,83 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Liste des Tags - Application{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Tableau de tags
+                </h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-header">
+                <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                        <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Titre</th>
+                                <th>Marque</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="isActive">
+
+                            {% for tag in tags %}
+                                <tr>
+                                    <td>{{ tag.id }}</td>
+                                    <td><a href="{{ path('wa_back_tag_edit', {'id': tag.id}) }}">{{ tag.title }}</a></td>
+                                    <td>
+                                        {% for brand in tag.brands %}
+                                            {{ brand.title }}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        <span class="pull-right">
+                                            <a href="{{ path('wa_back_tag_show', {'id': tag.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> Voir</a>
+                                            <a href="{{ path('wa_back_tag_edit', {'id': tag.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> Editer</a>
+                                            <a href="{{ path('wa_back_tag_delete', {'id': tag.id}) }}" class="btn btn-danger btn-sm"><i class="fa fa-remove"></i> Supprimer</a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="navigation">
+                            {{ knp_pagination_render(tags) }}
+                        </div>
+                    </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a href="{{ path('wa_back_tag_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer un Tag</a>
+                </div><!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+
+    {% block sidebar %}
+    <li class="header">Catégories</li>
+    {% for categorie in categories %}
+    <li><a href="{{ path('wa_back_category_show', {'id': categorie.id}) }}">{{ categorie.title }}</a>
+        {% endfor %}
+        {% endblock %}
+
+        {% block javascripts %}
+        {{ parent() }}
+        <script src="{{ asset('js/produit.js') }}"></script>
+{% endblock %}

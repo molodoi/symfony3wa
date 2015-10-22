@@ -36,6 +36,8 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Titre</th>
+                                    <th>Tags</th>
+                                    <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,6 +45,11 @@
                                     <tr>
                                         <td><a href="{{ path('wa_back_brand_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                                         <td>{{ entity.title }}</td>
+                                        <td>
+                                            {% for tag in entity.tags %}
+                                                {{ tag.title }}{% if not loop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </td>
                                         <td>
                                             <span class="pull-right btn-group actions">
                                                 <a href="{{ path('wa_back_brand_show', { 'id': entity.id }) }}" class="btn btn-success btn-sm" id="show_{{ entity.id }}"><i class="fa fa-eye"></i> Voir</a>

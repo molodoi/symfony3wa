@@ -14,4 +14,16 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('t')->orderBy('t.title', 'ASC');
     }
 
+
+
+    public function allTagsBrands(){
+        $q = $this->createQueryBuilder('tag')
+            ->select('tag , brand')
+            ->leftJoin('tag.brands','brand')
+            ->orderBy('tag.id', 'DESC')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
 }

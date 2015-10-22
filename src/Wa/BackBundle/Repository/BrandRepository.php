@@ -15,4 +15,14 @@ class BrandRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('m')->orderBy('m.title', 'ASC');
     }
 
+    public function allBrandsTags(){
+        $q = $this->createQueryBuilder('brand')
+            ->select('brand , tag')
+            ->leftJoin('brand.tags','tag')
+            ->orderBy('brand.id', 'DESC')
+            ->getQuery();
+
+        return $q->getResult();
+    }
+
 }

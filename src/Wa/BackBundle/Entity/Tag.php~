@@ -84,8 +84,6 @@ class Tag
     {
         $this->brands[] = $brand;
 
-        $brand->addTag($this);
-
         return $this;
     }
 

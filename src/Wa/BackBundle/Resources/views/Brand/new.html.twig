@@ -15,20 +15,59 @@
                 {{ form_widget(form.title, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
             </div>
 
-            {{ form_label(form.title, 'Tags') }}
+            {{ form_label(form.tags, 'Tags') }}
             <div class="form-group {% if form_errors(form.tags) %} has-error {% endif %}">
                 {{ form_errors(form.tags) }}
-                {{ form_widget(form.tags, { 'attr': {'class': 'form-control', 'placeholder': 'Titre'} }) }}
-            </div>
 
+            </div>
+            <a href="#" id="add-another-email">Ajouter un tag</a>
+            <a href="#" id="delete-another-email">Supprimer un tag</a>
+            <ul id="email-fields-list"
+                data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+                {% for tag in form.tags %}
+                    <li>
+                        {{ form_errors(tag) }}
+                        {{ form_widget(tag) }}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="box-footer">
             {{ form_widget(form.submit, { 'label': 'Envoyer', 'attr': {'class': 'btn btn-sm btn-info btn-flat pull-left'} }) }}
 
             <a href="{{ path('wa_back_brand') }}" class="btn btn-sm btn-info btn-flat pull-right">Revenir à la liste des marques</a>
         </div>
-
-        {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        // keep track of how many email fields have been rendered
+        var emailCount = '{{ form.tags|length }}';
+
+        jQuery(document).ready(function() {
+            jQuery('#add-another-email').click(function(e) {
+                e.preventDefault();
+
+                var emailList = jQuery('#email-fields-list');
+
+                // grab the prototype template
+                var newWidget = emailList.attr('data-prototype');
+                // replace the "__name__" used in the id and name of the prototype
+                // with a number that's unique to your emails
+                // end name attribute looks like name="contact[emails][2]"
+                newWidget = newWidget.replace(/__name__/g, emailCount);
+                emailCount++;
+
+                // create a new list element and add it to the list
+                var newLi = jQuery('<li></li>').html(newWidget);
+                newLi.appendTo(emailList);
+            });
+        })
+
+
+    </script>
 {% endblock %}

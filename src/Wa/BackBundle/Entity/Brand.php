@@ -39,15 +39,8 @@ class Brand
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Wa\BackBundle\Entity\Tag")
-     * @ORM\JoinTable(name="brand_tag",
-     *      joinColumns={
-     *          @ORM\JoinColumn(name="brand_id", referencedColumnName="id")
-     *      },
-     *		inverseJoinColumns={
-     *          @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-     *      }
-     *)
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="brands", cascade={"persist"})
+     * @ORM\JoinTable(name="brand_tag")
      */
     private $tags;
 

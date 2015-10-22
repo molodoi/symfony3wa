@@ -442,11 +442,11 @@
     </div><!-- /.row -->
 {% endblock %}
 
-{% block sidebar %}
-    <li class="header">Catégories</li>
-    {% for categorie in categories %}
-<li><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a>
-    {% endfor %}
+    {% block sidebar %}
+        <li class="header">Catégories</li>
+        {% for categorie in categories %}
+            <li><a href="{{ path('wa_back_categorie_show', {'id': categorie.id}) }}">{{ categorie.title }}</a>
+        {% endfor %}
     {% endblock %}
 
     {% block javascripts %}

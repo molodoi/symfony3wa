@@ -45,6 +45,21 @@
             </li>
         </ul>
     </li>
+
+
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-navicon"></i> <span>Tags des marques</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+            <li {% if app.request.attributes.get('_route') == 'wa_back_tag_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_tag_list') }}">Tous les Tags</a>
+            </li>
+            <li {% if app.request.attributes.get('_route') == 'wa_back_tag_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_tag_create') }}">Créer une Tag</a>
+            </li>
+        </ul>
+    </li>
     
     
     
