@@ -30,6 +30,7 @@
 
                 <div class="box-body">
                     <div class="table-responsive">
+                         {% if products %}
                         <table id="product-detail" class="table no-margin">
                             <thead>
                             <tr>
@@ -50,11 +51,14 @@
                                     <td><a href="{{ path('wa_back_product_edit', {'id': product.id}) }}">{{ product.title }}</a></td>
                                     <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
                                     <td>
-                                            {{ qte }}
+                                        {#{% if qte %}#}
+                                            {#{{ qte }}#}
+                                        {#{% endif %}#}
+                                        {{ product.qtyPanier }}
                                     </td>
 
-                                    {% set total = total + (product.price * qte) %}
-                                    <td><strong>{{ product.price * qte }}€</strong></td>
+                                    {% set total = total + (product.price * product.qtyPanier) %}
+                                    <td><strong>{{ product.price * product.qtyPanier }}€</strong></td>
                                     <td>{{ product.dateCreated|date("d/m/Y") }}</td>
                                     <td>
                                         <span class="pull-right btn-group actions">
@@ -69,6 +73,9 @@
 </tr>
                             </tbody>
                         </table>
+                        {% else %}
+                             rien
+                        {% endif %}
                         <div class="navigation">
                         </div>
                     </div><!-- /.table-responsive -->
@@ -84,5 +91,5 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('js/produit.js') }}"></script>
+    {#<script src="{{ asset('js/produit.js') }}"></script>#}
 {% endblock %}

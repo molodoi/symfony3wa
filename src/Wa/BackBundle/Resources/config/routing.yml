@@ -26,6 +26,16 @@ wa_back_produit:
     resource: "@WaBackBundle/Resources/config/routing/product.yml"
     prefix:   /product
 
+wa_back_login:
+    path: /login
+    defaults: { _controller: WaBackBundle:Main:login }
+
+wa_back_login_check:
+    path: /login_check
+
+wa_back_logout:
+    path: /logout
+
 wa_back:
     resource: "@WaBackBundle/Resources/config/routing/main.yml"
     prefix:   /

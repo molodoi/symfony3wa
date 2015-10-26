@@ -1,6 +1,6 @@
 parameters:
     wa_back_bundle.util.utility.class: Wa\BackBundle\Util\Utility
-    wa_back_bundle.panier.class: Wa\BackBundle\Services\Panier
+    wa_back_bundle.panier.class: Wa\BackBundle\Services\Cart
     competences:
         php: 1
         html: 9

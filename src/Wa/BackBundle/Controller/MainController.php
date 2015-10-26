@@ -4,10 +4,10 @@ namespace Wa\BackBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Wa\BackBundle\Entity\Product;
 use Wa\BackBundle\Controller\BaseController;
-//use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends BaseController
 {
@@ -103,7 +103,7 @@ class MainController extends BaseController
             ],
         ];
 
-        die(dump($this->get('wa_back.util')->getText()));
+        //die(dump($this->get('wa_back.util')->getText()));
 
 
 
@@ -324,5 +324,30 @@ class MainController extends BaseController
         return $this->render('WaBackBundle:Main:about.html.twig');
 
     }
+
+
+    public function loginAction(Request $request){
+
+
+
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render(
+            'WaBackBundle:Main:login.html.twig',
+            array(
+                // last username entered by the user
+                'last_username' => $lastUsername,
+                'error'         => $error,
+            )
+        );
+    }
+
+
 
 }

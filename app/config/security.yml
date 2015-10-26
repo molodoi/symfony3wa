@@ -1,11 +1,25 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
-
+    encoders:
+            Symfony\Component\Security\Core\User\User: plaintext
+            Wa\BackBundle\Entity\User: plaintext
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    admin:
+                        password: admin
+                        roles: ROLE_ADMIN
+                    user: { password: user, roles: ROLE_COMMERCIAL }
+                    nana: { password: aze, roles: ROLE_SUPER_NANA }
+        user_admin:
+            entity: { class: Wa\BackBundle\Entity\User, property: login }
+
+    role_hierarchy:
+        ROLE_SUPER_NANA: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN: ROLE_COMMERCIAL
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,12 +27,42 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        loginfirewall:
+            pattern: ^/admin/login$
+            security: false
+
         main:
-            anonymous: ~
+            pattern: ^/admin
+            anonymous: false
+            provider: user_admin
+            switch_user: { role: ROLE_SUPER_NANA }
+            # pour changer d'utilisateur il faut ajouter dans l'url ?_switch_user=admin
+            # pour revenir à l'état normal il faut ajouter dans l'url ?_switch_user=_exit
+            form_login:
+                login_path: wa_back_login
+                check_path: wa_back_login_check
+                # spécifie l'url sur laquelle atterir si il n'y a rien en "mémoire"
+                default_target_path: wa_back_login
+                # oblige à rediriger sur le default_target_path
+                always_use_default_target_path: false
+                #activation de la protection csrf
+                csrf_provider: security.csrf.token_manager
+            logout:
+                path: wa_back_logout
+                target: /admin
+
+            remember_me:
+                key:      "%secret%"
+                lifetime: 172800 # 2jours a définir en secondes
+
             # activate different ways to authenticate
 
-            # http_basic: ~
+            #http_basic:
+                #realm: "Zone sécurisé administration"
+                #provider: in_memory
             # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
