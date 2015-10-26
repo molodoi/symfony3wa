@@ -86,6 +86,10 @@
                 <a href="{{ path('wa_back_feedback') }}">Feedback</a>
             </li>
 
+            <li {% if app.request.attributes.get('_route') == 'wa_back_ecommerce' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_ecommerce') }}">Ecommerce</a>
+            </li>
+
         </ul>
     </li>
   

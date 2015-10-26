@@ -5,6 +5,7 @@ namespace Wa\BackBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
+use Wa\BackBundle\Entity\Product;
 use Wa\BackBundle\Controller\BaseController;
 //use Symfony\Component\HttpFoundation\Response;
 
@@ -102,6 +103,10 @@ class MainController extends BaseController
             ],
         ];
 
+        die(dump($this->get('wa_back.util')->getText()));
+
+
+
         $em = $this->getDoctrine()->getManager();
         $products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
         $prodCatNameAccueil = $em->getRepository('WaBackBundle:Product')->findProductsWhereCategorieIsAccueil();
@@ -129,6 +134,35 @@ class MainController extends BaseController
             )
         );
 
+    }
+
+    public function ecommerceAction(Request $request, $page){
+
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('WaBackBundle:Product');
+
+        //$products = $repository->findAll();
+        $allProducts = $repository->findAll();
+
+        if (null === $allProducts) {
+            throw new NotFoundHttpException("Aucuns produits.");
+        }
+
+        if(empty($page)){
+            $page = $request->query->getInt('page', 1);
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $products = $paginator->paginate(
+            $allProducts,
+            $page,
+            5
+        );
+
+        return $this->render('WaBackBundle:Main:ecommerce.html.twig', array(
+            'products' => $products
+        ));
     }
 
     public function contactAction(Request $request)

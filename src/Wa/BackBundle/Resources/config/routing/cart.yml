@@ -1,0 +1,11 @@
+wa_back_cart_add:
+    path: /add/{id}
+    defaults: { _controller: WaBackBundle:Cart:add }
+
+wa_back_cart_show:
+    path: /show
+    defaults: { _controller: WaBackBundle:Cart:show }
+
+wa_back_cart_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:Cart:delete }

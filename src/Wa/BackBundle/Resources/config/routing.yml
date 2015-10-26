@@ -1,3 +1,7 @@
+wa_back_cart:
+    resource: "@WaBackBundle/Resources/config/routing/cart.yml"
+    prefix:   /cart
+
 wa_back_tag:
     resource: "@WaBackBundle/Resources/config/routing/tag.yml"
     prefix:   /tag

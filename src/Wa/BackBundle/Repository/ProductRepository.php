@@ -235,6 +235,19 @@ class ProductRepository extends EntityRepository
         return $q->getResult();
     }
 
+    public function findProductByIdProduct($idsProduct)
+    {
+        $query = $this->getEntityManager()->createQuery(
+            "
+    	SELECT prod
+      FROM WaBackBundle:Product prod
+      WHERE prod.id IN (:ids)
+    "
+        )->setParameter('ids', $idsProduct);
+
+        return $query->getResult();
+    }
+
 
 
 }

@@ -1,3 +1,7 @@
+wa_back_ecommerce:
+    path: /ecommerce/{page}
+    defaults: { _controller: WaBackBundle:Main:ecommerce, page: 1 }
+
 wa_back_about:
     path: /about
     defaults: { _controller: WaBackBundle:Main:about }

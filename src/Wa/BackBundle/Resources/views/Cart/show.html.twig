@@ -1,0 +1,88 @@
+{% extends 'WaBackBundle::layout.html.twig' %}
+
+{% block title %}Panier Admin - Application{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    Panier
+                </h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-header">
+                <h3 class="box-title">
+                    Panier
+                </h3>
+                <div class="box-tools">
+                    <div class="input-group" style="width: 150px;">
+                        <input name="table_search" class="form-control input-sm pull-right" placeholder="Search" type="text">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="product-detail" class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Intitulé</th>
+                                <th>Description</th>
+                                <th>Quantité</th>
+                                <th>Prix</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% set total = 0 %}
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td><a href="{{ path('wa_back_product_edit', {'id': product.id}) }}">{{ product.title }}</a></td>
+                                    <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
+                                    <td>
+                                            {{ qte }}
+                                    </td>
+
+                                    {% set total = total + (product.price * qte) %}
+                                    <td><strong>{{ product.price * qte }}€</strong></td>
+                                    <td>{{ product.dateCreated|date("d/m/Y") }}</td>
+                                    <td>
+                                        <span class="pull-right btn-group actions">
+                                            <a href="{{ path('wa_back_cart_delete', {'id': product.id}) }}" class="btn btn-danger btn-sm" ><i class="fa fa-remove"></i> Supprimer</a>
+                                        </span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <td colspan="7" style="text-align:right;">Total {{ total }} €</td>
+                            </tr>
+</tr>
+                            </tbody>
+                        </table>
+                        <div class="navigation">
+                        </div>
+                    </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <a href="{{ path('wa_back_ecommerce') }}" class="btn btn-sm btn-info btn-flat pull-left">Revenir au commerce</a>
+                    <a href="{{ path('wa_back_cart_show') }}" class="btn btn-sm btn-info btn-flat pull-left">Voir le panier</a>
+                </div><!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/produit.js') }}"></script>
+{% endblock %}

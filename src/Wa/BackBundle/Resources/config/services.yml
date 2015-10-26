@@ -1,4 +1,16 @@
+parameters:
+    wa_back_bundle.util.utility.class: Wa\BackBundle\Util\Utility
+    wa_back_bundle.panier.class: Wa\BackBundle\Services\Panier
+    competences:
+        php: 1
+        html: 9
+        css: 4
+
 services:
-#    wa_back.example:
-#        class: Wa\BackBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    wa_back.util:
+        class: %wa_back_bundle.util.utility.class%
+        arguments: [%competences%, "ceci est un texte", @doctrine.orm.entity_manager]
+
+    wa_back_panier:
+        class: %wa_back_bundle.panier.class%
+        arguments: [@doctrine.orm.entity_manager, @session]
