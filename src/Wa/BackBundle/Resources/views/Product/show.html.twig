@@ -77,9 +77,11 @@
                 <a href="{{ path('wa_back_product_list') }}" class="btn btn-sm btn-info btn-flat pull-left"><i class="fa fa-mail-reply"></i> Revenir à la liste des produits</a>
                 &nbsp;
                 &nbsp;
-                <a href="{{ path('wa_back_product_edit', {'id': produit.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ produit.title }}</a>
-                <a href="{{ path('wa_back_product_delete', {'id': produit.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ produit.title }}</a>
-                &nbsp;
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('wa_back_product_edit', {'id': produit.id}) }}" class="btn btn-sm btn-success btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-edit"></i> Editer {{ produit.title }}</a>
+                    <a href="{{ path('wa_back_product_delete', {'id': produit.id}) }}" class="btn btn-sm btn-danger btn-flat pull-left" style="margin-left:5px;"><i class="fa fa-remove"></i> Supprimer  {{ produit.title }}</a>
+                {% endif %}
+                    &nbsp;
                     {# form_start(delete_form) #}
                 <!-- button class="btn btn-danger pull-right">Danger</button -->
                     {# form_end(delete_form) #}

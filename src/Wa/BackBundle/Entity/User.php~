@@ -379,38 +379,4 @@ class User implements UserInterface
 
 
 
-
-    /**
-     * Add groupe
-     *
-     * @param \Wa\BackBundle\Entity\Groupe $groupe
-     *
-     * @return User
-     */
-    public function addGroupe(\Wa\BackBundle\Entity\Groupe $groupe)
-    {
-        $this->groupes[] = $groupe;
-
-        return $this;
-    }
-
-    /**
-     * Remove groupe
-     *
-     * @param \Wa\BackBundle\Entity\Groupe $groupe
-     */
-    public function removeGroupe(\Wa\BackBundle\Entity\Groupe $groupe)
-    {
-        $this->groupes->removeElement($groupe);
-    }
-
-    /**
-     * Get groupes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGroupes()
-    {
-        return $this->groupes;
-    }
 }

@@ -7,10 +7,11 @@
             <li {% if app.request.attributes.get('_route') == 'wa_back_product_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_product_list') }}">Toutes les Produits</a>
             </li>
+            {#{% if is_granted('ROLE_ADMIN') %}#}
             <li {% if app.request.attributes.get('_route') == 'wa_back_product_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_product_create') }}">Créer un Produit</a>
             </li>
-
+            {#{% endif %}#}
             <li {% if app.request.attributes.get('_route') == 'wa_back_comment_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_comment_list') }}">Tous les commentaires</a>
             </li>
@@ -25,6 +26,7 @@
             <li {% if app.request.attributes.get('_route') == 'wa_back_category_list' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_category_list') }}">Toutes les Catégories</a>
             </li>
+
             <li {% if app.request.attributes.get('_route') == 'wa_back_category_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
                 <a href="{{ path('wa_back_category_create') }}">Créer une Catégorie</a>
             </li>

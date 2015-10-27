@@ -61,8 +61,10 @@
                                     <td>
                                         <span class="pull-right btn-group actions">
                                             <a href="{{ path('wa_back_product_show', {'id': product.id}) }}" class="btn btn-success btn-sm" id="show_{{ product.id }}"><i class="fa fa-eye"></i> Voir</a>
-                                            <a href="{{ path('wa_back_product_edit', {'id': product.id}) }}" class="btn btn-info btn-sm" id="edit_{{ product.id }}"><i class="fa fa-edit"></i> Editer</a>
-                                            <a href="{{ path('wa_back_product_delete', {'id': product.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ product.id }}"><i class="fa fa-remove"></i> Supprimer</a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href="{{ path('wa_back_product_edit', {'id': product.id}) }}" class="btn btn-info btn-sm" id="edit_{{ product.id }}"><i class="fa fa-edit"></i> Editer</a>
+                                                <a href="{{ path('wa_back_product_delete', {'id': product.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ product.id }}"><i class="fa fa-remove"></i> Supprimer</a>
+                                            {% endif %}
                                         </span>
                                     </td>
                                 </tr>
@@ -75,7 +77,11 @@
                     </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="{{ path('wa_back_product_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer un produit</a>
+
+                {% if is_granted('ROLE_ADMIN') %}
+	                <a href="{{ path('wa_back_product_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer un produit</a>
+                {% endif %}
+
                 </div><!-- /.box-footer -->
             </div>
         </div>

@@ -1,0 +1,25 @@
+wa_back_user_index:
+    path: /index
+    defaults: { _controller: WaBackBundle:User:index }
+
+wa_back_user_list:
+    path: /list/{page}
+    defaults: { _controller: WaBackBundle:User:list, page: 1 }
+
+wa_back_user_edit:
+    path: /edit/{id}
+    defaults: { _controller: WaBackBundle:User:edit }
+
+wa_back_user_show:
+    path: /show/{id}
+    defaults: { _controller: WaBackBundle:User:show }
+    requirements:
+        id: \d+
+
+wa_back_user_create:
+    path: /create
+    defaults: { _controller: WaBackBundle:User:create }
+
+wa_back_user_delete:
+    path: /delete/{id}
+    defaults: { _controller: WaBackBundle:User:delete }

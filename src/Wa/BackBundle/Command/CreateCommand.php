@@ -22,8 +22,9 @@ class CreateCommand extends ContainerAwareCommand
             ->setName('mattmatt:user:create')
             ->setDescription('Créer un utilisateur.')
             ->setDefinition(array(
-                new InputArgument('username', InputArgument::REQUIRED, 'The username'),
-                new InputArgument('password', InputArgument::REQUIRED, 'The password'),
+                new InputArgument('username', InputArgument::REQUIRED, 'username'),
+                new InputArgument('password', InputArgument::REQUIRED, 'password'),
+                new InputArgument('email', InputArgument::OPTIONAL, 'email'),
             ));
     }
 
@@ -34,12 +35,20 @@ class CreateCommand extends ContainerAwareCommand
     {
         $username   = $input->getArgument('username');
         $password   = $input->getArgument('password');
+        $email   = $input->getArgument('email');
+
+
 
         $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $user = new User();
+
+        $factory = $this->getContainer()->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+
         $user->setLogin($username);
-        $user->setPassword($password);
+        $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
+        $user->setEmail($email);
 
         $em->persist($user);
         $em->flush();

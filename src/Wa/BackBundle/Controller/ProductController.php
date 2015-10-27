@@ -12,12 +12,20 @@ use Wa\BackBundle\Entity\Product;
 use Wa\BackBundle\Entity\Comment;
 use Wa\BackBundle\Form\ProductType;
 use Wa\BackBundle\Form\CommentType;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 //use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
     public function createAction(Request $request){
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, "Vous n'avez l'autorisation pour accéder à cette page");
+
+        /*
+          if (false === $this->get('security.context')->isGranted('ROLE_COMMERCIAL')) {
+            throw new AccessDeniedException();
+        }
+        */
 
         $product = new Product();
 
@@ -48,9 +56,13 @@ class ProductController extends Controller
                 'formProduct' => $form->createView()
             ));
     }
-    
 
+    /**
+     * @Security("has_role('ROLE_ADMIN')")
+     */
     public function editAction($id, Request $request){
+
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, "Vous n'avez l'autorisation pour accéder à cette page");
 
         $repository = $this->getDoctrine()
             ->getManager()
@@ -90,7 +102,7 @@ class ProductController extends Controller
             )
         );
     }
-    
+
 
     public function listAction(Request $request, $page){
         $repository = $this->getDoctrine()

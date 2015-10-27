@@ -10,7 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wa\BackBundle\Controller\BaseController;
 use Wa\BackBundle\Form\CategoryType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Security("has_role('ROLE_ADMIN')")
+ */
 class CategoryController extends BaseController
 {
     public function createAction(Request $request){

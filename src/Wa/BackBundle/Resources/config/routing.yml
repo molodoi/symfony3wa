@@ -1,3 +1,7 @@
+wa_back_user:
+    resource: "@WaBackBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
 wa_back_cart:
     resource: "@WaBackBundle/Resources/config/routing/cart.yml"
     prefix:   /cart
