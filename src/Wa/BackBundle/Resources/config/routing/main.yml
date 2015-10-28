@@ -21,7 +21,3 @@ wa_back_feedback:
 wa_back_etudiant:
     path:     /etudiant/{firstname}/{lastname}
     defaults: { _controller: WaBackBundle:Etudiant:index }
-
-wa_back_homepage:
-    path:     /
-    defaults: { _controller: WaBackBundle:Main:admin }

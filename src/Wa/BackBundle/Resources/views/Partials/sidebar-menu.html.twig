@@ -1,4 +1,19 @@
 <ul class="sidebar-menu">
+
+    <li class="active treeview">
+        <a href="#">
+            <i class="fa fa-navicon"></i> <span>User</span> <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+
+            <li {% if app.request.attributes.get('_route') == 'wa_back_user_create' %} class="active" style="pointer-events: none; cursor: default;" {% endif %}>
+                <a href="{{ path('wa_back_user_create') }}">Créer un User</a>
+            </li>
+            {# render(controller("WaBackBundle:Category:getAllCategories")) #}
+        </ul>
+    </li>
+
+
     <li class="active treeview">
         <a href="#">
             <i class="fa fa-navicon"></i> <span>Produit</span> <i class="fa fa-angle-left pull-right"></i>

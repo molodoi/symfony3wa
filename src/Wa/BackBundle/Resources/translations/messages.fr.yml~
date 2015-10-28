@@ -1,0 +1,8 @@
+product:
+    title: |
+        Ceci est la page qui liste tous les produits
+        lorem
+        lorem
+        lorel
+    subtitle: Ceci est du texte
+    count: Il y a 2 produits

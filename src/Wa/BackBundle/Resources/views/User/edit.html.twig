@@ -1,10 +1,19 @@
 {% extends 'WaBackBundle::layout.html.twig' %}
 
-{% block title %}Créer un User - Application{% endblock %}
+{% block title %}Editer un User - Application{% endblock %}
+
+
+{% block tel_widget %}
+    {% spaceless %}
+        {% set type = 'tel' %}
+        {{ block('form_widget_simple') }}
+
+    {% endspaceless %}
+{% endblock %}
 
 {% block content %}
     {{ parent() }}
-    <h1>Créer un User </h1>
+    <h1>Editer un User </h1>
     {% if form_errors(formUser) %}
         <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -38,11 +47,11 @@
                 {{ form_widget(formUser.email, { 'attr': {'class': 'form-control', 'placeholder': 'Email'} }) }}
             </div>
 
-            {{ form_label(formUser.login) }}
+            {#{{ form_label(formUser.login) }}
             <div class="form-group {% if form_errors(formUser.login) %} has-error {% endif %}">
                 {{ form_errors(formUser.login) }}
                 {{ form_widget(formUser.login, { 'attr': {'class': 'form-control', 'placeholder': 'Login'} }) }}
-            </div>
+            </div>#}
 
             {{ form_label(formUser.password.first) }}
             <div class="form-group {% if form_errors(formUser.password.first) %} has-error {% endif %}">

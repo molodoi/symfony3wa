@@ -5,6 +5,7 @@ namespace Wa\BackBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Wa\BackBundle\Validator\MotDePasse;
 
 /**
  * User
@@ -55,6 +56,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=true)
+     * @MotDePasse(message="Attention il faut {{ nb }} caractères", min=8)
      */
     private $password;
 
@@ -318,7 +320,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        //die(dump($this->groupe));
+        //die(dump($this->groupes));
         //return $this->groupe->toArray();
         $roles = array();
         foreach ($this->groupes as $role) {
@@ -413,4 +415,30 @@ class User implements UserInterface
     {
         return $this->groupes;
     }
+
+    /**
+     * @Assert\Callback
+
+      public function isValid(ExecutionContextInterface $context)
+    {
+        $forbiddenWords = array('admin');
+
+        // On vérifie que le contenu ne contient pas l'un des mots
+        if (preg_match('#'.implode('|', $forbiddenWords).'#', strtolower($this->getLogin()))
+            && preg_match('#'.implode('|', $forbiddenWords).'#', strtolower($this->getPassword()))
+        ) {
+            // La règle est violée, on définit l'erreur
+            $context
+                ->buildViolation('Contenu invalide car il contient un mot interdit.')
+                ->atPath('login')
+                ->addViolation()
+            ;
+
+            $context
+                ->buildViolation('Tous les caractères de votre titre ne sont pas en majuscules!')
+                ->atPath('password')
+                ->addViolation()
+            ;
+        }
+    }*/
 }

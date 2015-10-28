@@ -17,7 +17,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class UserRepository extends EntityRepository implements UserProviderInterface
 {
 
-
     /**
      * Loads the user for the given username.
      *
@@ -34,14 +33,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface
      */
     public function loadUserByUsername($loginOrEmail)
     {
-        //die(dump($loginOrEmail));
+
         $user = $this->createQueryBuilder('u')
-                    ->where('u.login = :login OR u.email = :email')
-                    ->setParameters([
-                        'login' => $loginOrEmail,
-                        'email' => $loginOrEmail
-                    ])->getQuery()
-                    ->getOneOrNullResult();
+            ->select('u, g')
+            ->leftJoin('u.groupes', 'g')
+            ->where('u.login = :login OR u.email = :email')
+            ->setParameters([
+                'login' => $loginOrEmail,
+                'email' => $loginOrEmail
+            ])->getQuery()
+            ->getOneOrNullResult();
 
         if (null == $user)
         {

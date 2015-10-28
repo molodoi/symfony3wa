@@ -40,15 +40,15 @@
                             {% for product in products %}
                                 <tr>
                                     <td>{{ product.id }}</td>
-                                    <td><a href="{{ path('wa_back_produit_show', {'id': product.id}) }}">{{ product.title }}</a></td>
+                                    <td><a href="{{ path('wa_back_product_show', {'id': product.id}) }}">{{ product.title }}</a></td>
                                     <td>{{ product.dateCreated|date("d/m/Y") }}</td>
                                     <td><strong>{{ product.price }} €</strong></td>
                                     <td>{{ product.description|striptags|nl2br }} {{ product.dateCreated|date }}</td>
                                     <td>
                                         <span class="pull-right btn-group actions">
-                                            <a href="{{ path('wa_back_produit_show', {'id': product.id}) }}" class="btn btn-success btn-sm" id="show_{{ product.id }}"><i class="fa fa-eye"></i> Voir</a>
-                                            <a href="{{ path('wa_back_produit_edit', {'id': product.id}) }}" class="btn btn-info btn-sm" id="edit_{{ product.id }}"><i class="fa fa-edit"></i> Editer</a>
-                                            <a href="{{ path('wa_back_produit_delete', {'id': product.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ product.id }}"><i class="fa fa-remove"></i> Supprimer</a>
+                                            <a href="{{ path('wa_back_product_show', {'id': product.id}) }}" class="btn btn-success btn-sm" id="show_{{ product.id }}"><i class="fa fa-eye"></i> Voir</a>
+                                            <a href="{{ path('wa_back_product_edit', {'id': product.id}) }}" class="btn btn-info btn-sm" id="edit_{{ product.id }}"><i class="fa fa-edit"></i> Editer</a>
+                                            <a href="{{ path('wa_back_product_delete', {'id': product.id}) }}" class    ="btn btn-danger btn-sm" id="supp_{{ product.id }}"><i class="fa fa-remove"></i> Supprimer</a>
                                         </span>
                                     </td>
                                 </tr>
@@ -62,7 +62,7 @@
                     </div><!-- /.table-responsive -->
                 </div><!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="{{ path('wa_back_produit_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer un produit</a>
+                    <a href="{{ path('wa_back_product_create') }}" class="btn btn-sm btn-info btn-flat pull-left">Créer un produit</a>
                 </div><!-- /.box-footer -->
             </div>
         </div>

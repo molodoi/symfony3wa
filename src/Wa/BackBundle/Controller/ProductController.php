@@ -205,9 +205,9 @@ class ProductController extends Controller
     }
 
 
-    public function indexAction(){
+    public function indexAction(Request $request, $page){
         $em = $this->getDoctrine()->getManager();
-        //$products = $em->getRepository('WaBackBundle:Product')->findAllPerso();
+        //$products = $em->getRepository('WaBackBundle:Product')->findAll();
         //$products = $em->getRepository('WaBackBundle:Product')->getProductsWhereCategorieIsAccueil();
         //$products = $em->getRepository('WaBackBundle:Product')->getProductsDontHaveCategorie();
         //$products = $em->getRepository('WaBackBundle:Product')->getProductsDontCatButBrand();
@@ -217,7 +217,26 @@ class ProductController extends Controller
         //$products = $em->getRepository('WaBackBundle:Category')->getImageCaptionWherePositionIsMax();
         //$products = $em->getRepository('WaBackBundle:Category')->getCategorieWhereMaxlenghtCaption();
 
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('WaBackBundle:Product');
 
+        $allProductsWithCategories = $repository->findAllProductsWithCategories();
+
+        if (null === $allProductsWithCategories) {
+            throw new NotFoundHttpException("Aucuns produits.");
+        }
+
+        if(empty($page)){
+            $page = $request->query->getInt('page', 1);
+        }
+
+        $paginator = $this->get('knp_paginator');
+        $products = $paginator->paginate(
+            $allProductsWithCategories,
+            $page,
+            5
+        );
 
 
         return $this->render('WaBackBundle:Product:index.html.twig', array(

@@ -7,7 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Wa\BackBundle\Repository\GroupeRepository;
-
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Wa\BackBundle\Form\Type\TelType;
+use Wa\BackBundle\Form\Type\GenderType;
 
 class UserType extends AbstractType
 {
@@ -27,11 +30,14 @@ class UserType extends AbstractType
                 'first_options'  => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat Password'),
             ))
-            ->add('gender', 'choice', array(
+            //->add('gender',  new GenderType()
+            ->add('gender',  'gender'
+                /*, array(
                 'choices'  => array('0' => 'Homme', '1' => 'Femme'),
-            ))
+                )*/
+            )
             ->add('address', 'text')
-            ->add('phone', 'text')
+            ->add('phone', new TelType())
             ->add('groupes', 'entity',
                 array(
                     'class' => 'Wa\BackBundle\Entity\Groupe',
@@ -43,7 +49,31 @@ class UserType extends AbstractType
                     'read_only' => true
                 )
             )
+            ->add('agree', 'checkbox',
+                array(
+                    "mapped" => false // permet d'ajouter un champ non mappé de l'entité User
+                )
+            )
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA,
+            array(
+                $this, 'editUser'
+            )
+        );
+    }
+
+    public function editUser(FormEvent $event)
+    {
+        $user = $event->getData(); // objet user
+        $form = $event->getForm(); // le formulaire
+
+        // Si j'ai un utilisateur et que l'id de l'utilisateur existe =
+        // je suis entrain de faire une modification
+        if ($user && $user->getId())
+        {
+            $form->remove('login');
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 wa_back_product_index:
-    path: /index
-    defaults: { _controller: WaBackBundle:Product:index }
+    path: /index/{page}
+    defaults: { _controller: WaBackBundle:Product:index, page: 1 }
 
 wa_back_product_list:
     path: /list/{page}

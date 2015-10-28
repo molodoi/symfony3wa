@@ -1,0 +1,9 @@
+product:
+	# message sur plusieurs grâce au |
+	title: |
+    Ceci est la page qui liste tous les produits
+    lorem
+    lorem
+    lorel
+  subtitle: Ceci est du texte
+  count: "{0} Il n'y a pas de produit|{1} Il y a un produit|]1,20] Il y a %nb% produits|]20,Inf[ Il y a beaucoup de produits"

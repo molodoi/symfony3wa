@@ -5,6 +5,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 // Ajoutez ce use pour le contexte
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Wa\BackBundle\Validator\PositionCategory;
 
 /**
  * Category
@@ -42,6 +43,7 @@ class Category
      * @var integer
      *
      * @ORM\Column(name="position", type="integer")
+     * @PositionCategory()
      */
     private $position;
 
