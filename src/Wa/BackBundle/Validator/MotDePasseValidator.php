@@ -11,7 +11,6 @@ class MotDePasseValidator extends ConstraintValidator
     {
         // $value c'est la valeur du mot de passe
         // $constraint c'est l'objet MotDePasse
-
         if (strlen($value) < $constraint->min)
         {
             $this->context->buildViolation($constraint->message)
