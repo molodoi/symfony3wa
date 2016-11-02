@@ -4,50 +4,62 @@ Formation sur le framework Symfony 2 en collaboration avec SensioLabs basée sur
 
 PROGRAMME
 ========================
--RAPPELS SUR LA POO
- Namespaces
- Classes : attributs et méthodes
- Héritage et Aggrégation
 
--LES BASES DE SYMFONY2
- Installation de Symfony2
- Structure d'un projet
- Configurer son projet
- Déroulement d'une requête HTTP
+Rappels POO
+========================
+- Namespaces
+- Classes : attributs et méthodes
+- Héritage et Aggrégation
 
--LE DÉVELOPPEMENT BIO
- Les Bundles
- Les design patterns
- Conventions
+Les bases du framework
+========================
+- Installation de Symfony2
+- Structure d'un projet
+- Configurer son projet
+- Déroulement d'une requête HTTP
 
--LE MVC : LE CONTROLEUR
- Principes
- Gestion des paramètres
- Objets Request et Response
+Développement Bio
+========================
+- Les Bundles
+- Les design patterns
+- Conventions
 
--LE MVC - LA VUE
- Principes
- Twig
- Héritage et inclusions
- Utilisation des blocs
+MVC : Controleur
+========================
+- Principes
+- Gestion des paramètres
+- Objets Request et Response
 
--LE MVC : LE MODÈLE
- Principe d'un ORM
- Le mapping de classes
- Interroger la base
+MVC - Vue
+========================
+- Principes
+- Twig
+- Héritage et inclusions
+- Utilisation des blocs
+
+MVC : Modèle
+========================
+- Principe d'un ORM
+- Le mapping de classes
+- Interroger la base
  
--INTERAGIR AVEC L'UTILISATEUR
- Les formulaires
- Les routes
+Intéragir avec l'utilisateur
+========================
+- Les formulaires
+- Les routes
 
--TESTER SON CODE
- Tests unitaires
- Tests fonctionnels
--BASCULER EN PRODUCTION
- Déployer en production
- Tester votre code
+Tester son code
+========================
+- Tests unitaires
+- Tests fonctionnels
  
- Install
+Déploiement sans outils
+========================
+- Déployer en production à l'ancienne
+- Tester votre code
+- Focus capifony, capistrano, travis 
+ 
+Install
 ========================
 - Clone project
 - Make composer install
