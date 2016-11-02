@@ -1,6 +1,6 @@
-Symfony Standard Edition
+Symfony 3WA
 ========================
-Formation sur le framework Symfony 2 en collaboration avec SensioLabs basée sur un projet concret de A-Z
+Formation sur le framework Symfony 2 en collaboration avec SensioLabs basée sur un projet concret de A-Z http://symfony.3wa.fr/
 
 PROGRAMME
 ========================
